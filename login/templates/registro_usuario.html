@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrarse</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+    />
+    <style>
+      body {
+        background-image: url("{% static 'images/background.png' %}");
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="container d-flex justify-content-center align-items-center vh-100"
+    >
+      <div class="row">
+        <div class="col-12 text-center">
+          <h2 class="mb-3">Registro de Usuario</h2>
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+              <input
+                type="text"
+                name="username"
+                class="form-control"
+                placeholder="Nombre de usuario"
+              />
+              {% if form.username.errors %}
+              <p class="error-message">{{ form.username.errors }}</p>
+              {% endif %}
+            </div>
+            <div class="form-group mb-3">
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="Correo electrónico"
+              />
+              {% if form.email.errors %}
+              <p class="error-message">{{ form.email.errors }}</p>
+              {% endif %}
+            </div>
+            <div class="form-group mb-3">
+              <input
+                type="password"
+                name="password1"
+                class="form-control"
+                placeholder="Contraseña"
+              />
+              {% if form.password1.errors %}
+              <p class="error-message">{{ form.password1.errors }}</p>
+              {% endif %}
+            </div>
+            <div class="form-group mb-3">
+              <input
+                type="password"
+                name="password2"
+                class="form-control"
+                placeholder="Confirmar contraseña"
+              />
+              {% if form.password2.errors %}
+              <p class="error-message">{{ form.password2.errors }}</p>
+              {% endif %}
+            </div>
+            <button type="submit" class="btn btn-success">Registrarse</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+    />
+    <style>
+      body {
+        background-image: url("{% static 'images/background.png' %}");
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <a class="btn btn-success mt-5 mb-3 col-1" href="crear/">crear</a>
+      {% for producto in form %}
+      <div class="col-12 mt-3 mb-3">
+        <div class="alert alert-dark" role="alert">
+          <div class="row align-items-center">
+            <div class="col-1">
+              <h4 class="mb-4">{{ producto.nombre }}</h4>
+            </div>
+            <div class="col-1">
+              <strong><p>Precio: ${{ producto.precio }}</p></strong>
+            </div>
+            <div class="col-1">
+              <strong>
+                <p>Descripción: {{ producto.descripcion }}</p>
+              </strong>
+            </div>
+            <div class="col-9 text-end">
+              <img
+                src="{{ producto.imagen.url }}"
+                alt="{{ producto.nombre }}"
+                class="img-fluid rounded col-2 shadow-lg rounded"
+              />
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="justify-content-end align-items-end">
+                  <a type="button" class="btn btn-secondary me-3" href="ver/"
+                    >ver</a
+                  >
+                  <a
+                    type="button"
+                    class="btn btn-primary me-3"
+                    href="editar/{{ producto.nombre }}"
+                    >editar</a
+                  >
+                  <a
+                    type="button"
+                    class="btn btn-danger me-3"
+                    href="borrar/{{ producto.nombre }}"
+                    >borrar</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+    />
+    <style>
+      body {
+        background-image: url("{% static 'images/background.png' %}");
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="container d-flex justify-content-center align-items-center vh-100"
+    >
+      <div class="row">
+        <div class="col-12 text-center">
+          <h2 class="mb-3">Login</h2>
+          <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <input
+                type="text"
+                name="username"
+                class="form-control"
+                placeholder="Nombre de usuario"
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                placeholder="Contraseña"
+              />
+            </div>
+            <div class="mb-3 d-grid">
+              <button class="btn btn-primary" type="submit">
+                Iniciar sesión
+              </button>
+            </div>
+            <div class="mb-3 d-grid">
+              <a
+                type="button"
+                class="btn btn-success btn-sm"
+                href="/login/registrar/"
+                >Registrar</a
+              >
+            </div>
+          </form>
+          {% if error_message %}
+          <p>{{ error_message }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

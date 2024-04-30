@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Confirmar Eliminación</title>
+  </head>
+  <body>
+    <h2>¿Estás seguro que deseas eliminar {{ producto.nombre }}?</h2>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit">Eliminar</button>
+    </form>
+  </body>
+</html>

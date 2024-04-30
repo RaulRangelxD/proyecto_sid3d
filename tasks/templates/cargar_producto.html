@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crear</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+    />
+    <style>
+      body {
+        background-image: url("{% static 'images/background.png' %}");
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container d-flex justify-content-center align-items-center">
+      <div class="col-6">
+        <div class="col-12">
+          <h2>Cargar Producto</h2>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %} {{ form.nombre.label_tag }}: {{ form.nombre }}
+            <br />
+            {{ form.precio.label_tag }}: {{ form.precio }}
+            <br />
+            {{ form.descripcion.label_tag }}: {{ form.descripcion }}
+            <br />
+            {{ form.imagen.label_tag }}: {{ form.imagen }}
+            <br />
+            <button type="submit">Guardar</button>
+          </form>
+          <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
