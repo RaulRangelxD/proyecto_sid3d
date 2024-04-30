@@ -18,31 +18,31 @@
     </style>
   </head>
   <body>
-    <div class="container-fluid d-flex">
-      <div class="row col-12 alert alert-dark mt-5">
-        {% for producto in form %}
-        <div class="col-1">
-          <h4 class="mb-4">{{ producto.nombre }}</h4>
+    <div class="container">
+      <div class="col-12 mt-4">
+        <div class="row justify-content-center align-items-center">
+          {% for producto in form %}
+          <div class="col-3">
+            <div class="row alert alert-dark me-2">
+              <div class="col-12">
+                <h4 class="mb-4">{{ producto.nombre }}</h4>
+                <strong><p>Precio: ${{ producto.precio }}</p></strong>
+                <p>Descripción: {{ producto.descripcion }}</p>
+              </div>
+              <div class="col-12">
+                <img
+                  src="{{ producto.imagen.url }}"
+                  alt="{{ producto.nombre }}"
+                  class="img-fluid rounded col-10 shadow-lg rounded"
+                />
+              </div>
+            </div>
+          </div>
+          {% endfor %}
         </div>
-        <div class="col-1">
-          <strong><p>Precio: ${{ producto.precio }}</p></strong>
-        </div>
-        <div class="col-1">
-          <strong>
-            <p>Descripción: {{ producto.descripcion }}</p>
-          </strong>
-        </div>
-        <div class="col-9 text-end">
-          <img
-            src="{{ producto.imagen.url }}"
-            alt="{{ producto.nombre }}"
-            class="img-fluid rounded col-2 shadow-lg rounded"
-          />
-        </div>
-        <div class="row justify-content-start">{% endfor %}</div>
       </div>
+      <a type="button" class="btn btn-primary" href="/tasks/">Regresar</a>
     </div>
-
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   </body>
 </html>

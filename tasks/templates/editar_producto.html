@@ -24,15 +24,22 @@
       <div class="col-6">
         <h2>Editar Producto: {{ producto.nombre }}</h2>
         <form method="post" enctype="multipart/form-data">
-          {% csrf_token %} {{ form.nombre.label_tag }}: {{ form.nombre }}
-          <br />
-          {{ form.precio.label_tag }}: {{ form.precio }}
-          <br />
-          {{ form.descripcion.label_tag }}: {{ form.descripcion }}
-          <br />
-          {{ form.imagen.label_tag }}: {{ form.imagen }}
-          <br />
-          <button type="submit">Guardar Cambios</button>
+          {% csrf_token %}
+          <div class="form-group">
+            {{ form.nombre.label_tag }} {{ form.nombre }}
+          </div>
+          <div class="form-group">
+            {{ form.precio.label_tag }} {{ form.precio }}
+          </div>
+          <div class="form-group">
+            {{ form.descripcion.label_tag }} {{ form.descripcion }}
+          </div>
+          <div class="form-group">
+            {{ form.imagen.label_tag }} {{ form.imagen }}
+          </div>
+          <button type="button" class="btn btn-success mt-3">
+            Guardar Cambios
+          </button>
         </form>
       </div>
     </div>
