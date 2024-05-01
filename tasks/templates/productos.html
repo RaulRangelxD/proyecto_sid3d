@@ -20,7 +20,7 @@
 
   <body>
     <div class="container">
-      <a class="btn btn-success mt-5 mb-3 col-1" href="crear/">crear</a>
+      <a class="btn btn-success mt-5 mb-3 col-1" href="crear/">Crear</a>
       {% for producto in form %}
       <div class="col-12 mt-3 mb-3">
         <div class="alert alert-dark" role="alert">
@@ -47,19 +47,19 @@
               <div class="col-12">
                 <div class="justify-content-end align-items-end">
                   <a type="button" class="btn btn-secondary me-3" href="ver/"
-                    >ver</a
+                    >Ver</a
                   >
                   <a
                     type="button"
                     class="btn btn-primary me-3"
                     href="editar/{{ producto.nombre }}"
-                    >editar</a
+                    >Editar</a
                   >
                   <a
                     type="button"
                     class="btn btn-danger me-3"
                     href="borrar/{{ producto.nombre }}"
-                    >borrar</a
+                    >Borrar</a
                   >
                 </div>
               </div>
