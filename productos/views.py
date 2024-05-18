@@ -15,7 +15,7 @@ def crear(request):
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('/tasks/')
+            return redirect('/productos/')
     else:
         form = ProductoForm()
     return render(request, 'cargar_producto.html', {'form': form})
@@ -25,7 +25,7 @@ def borrar(request, nombre):
     if request.method == 'POST':
         producto.imagen.delete()
         producto.delete()
-        return redirect('/tasks/')
+        return redirect('/productos/')
     return render(request, 'confirmar_eliminacion.html', {'producto': producto})
 
 def editar(request, nombre):
@@ -34,7 +34,7 @@ def editar(request, nombre):
         form = ProductoForm(request.POST, request.FILES, instance=producto)
         if form.is_valid():
             form.save()
-            return redirect('/tasks/')
+            return redirect('/productos/')
     else:
         form = ProductoForm(instance=producto)
     return render(request, 'editar_producto.html', {'form': form, 'producto': producto})

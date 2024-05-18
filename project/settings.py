@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tasks',
     'login',
+    'productos',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +58,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['tasks/templates', 'login/templates'],
+        'DIRS': ['productos/templates', 'login/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Base',
+        'NAME': 'base0',
         'USER': 'postgres',
-        'PASSWORD': 'jema2019',
+        'PASSWORD': 'Alejandra0318*',
         'HOST': 'localhost',
         'PORT': '5432',
     }
