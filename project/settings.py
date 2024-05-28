@@ -58,7 +58,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['productos/templates', 'login/templates'],
+        'DIRS': ['productos/templates', 'login/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'base0',
+        'NAME': 'proyecto',
         'USER': 'postgres',
-        'PASSWORD': 'Alejandra0318*',
+        'PASSWORD': 'alejandra',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -129,5 +129,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'login.User'
 
 

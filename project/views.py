@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
 
 def index(request):
-    return redirect('/login/iniciar_sesion/')
+    return redirect('/login/')
 

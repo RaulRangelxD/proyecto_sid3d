@@ -1,7 +1,14 @@
 from django.urls import path
-from .views import user_login, registrar_usuario
+from . import views
 
 urlpatterns = [
-    path('iniciar_sesion/', user_login, name='login'),
-    path('registrar/', registrar_usuario),
+
+    path('', views.index, name= 'index'),
+    path('login/', views.login_view, name='login_view'),
+    path('register/', views.register, name='register'),
+    path('adminpage/', views.admin, name='adminpage'),
+    path('customer/', views.customer, name='customer'),
+    path('employee/', views.employee, name='employee'),
+    path('home/', views.home, name='home')
 ]
+
