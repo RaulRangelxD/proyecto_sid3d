@@ -21,6 +21,11 @@
   <body>
     <div class="container">
       <a class="btn btn-success mt-5 mb-3 col-1" href="crear/">Crear</a>
+      <div>
+        <a type="button" class="btn btn-pill text-white btn-block btn-primary" href="{% url 'login_view' %}"
+                    >Iniciar Sesion</a
+                  >
+    </div>
       {% for producto in form %}
       <div class="col-12 mt-3 mb-3">
         <div class="alert alert-dark" role="alert">
@@ -36,6 +41,7 @@
                 <p>Descripción: {{ producto.descripcion }}</p>
               </strong>
             </div>
+            
             <div class="col-9 text-end">
               <img
                 src="{{ producto.imagen.url }}"
@@ -67,6 +73,9 @@
           </div>
         </div>
         {% endfor %}
+          <a type="button" class="btn btn-pill text-white btn-block btn-primary" href="{% url 'logout' %}"
+                    >Salir</a
+                  >
         <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
       </div>
     </div>

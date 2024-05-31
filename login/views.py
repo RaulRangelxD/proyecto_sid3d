@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import SignUpForm, LoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 def index(request):
     return render(request, 'index.html')
@@ -41,6 +41,10 @@ def login_view(request):
         else:
             msg = 'Formulario inválido'
     return render(request, 'login.html', {'form':form, 'msg':msg})
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
 
 def home(request):
     return redirect('/productos/')

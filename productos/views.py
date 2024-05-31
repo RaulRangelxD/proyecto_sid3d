@@ -3,6 +3,13 @@ from .models import Producto
 from .forms import ProductoForm
 
 def index(request):
+    if request.user.is_authenticated:
+        if  request.user.is_admin == True:
+            print('Admin')
+        if  request.user.is_customer == True:
+            print('Customer')
+        if  request.user.is_employee == True:
+            print('Employee')
     form = Producto.objects.all()
     return render(request, 'productos.html', {'form': form})
 
