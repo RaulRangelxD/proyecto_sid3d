@@ -26,8 +26,12 @@
             <div class="row alert alert-dark me-2">
               <div class="col-12">
                 <h4 class="mb-4">{{ producto.nombre }}</h4>
-                <strong><p>Precio: ${{ producto.precio }}</p></strong>
+                <p>Categoria: {{ producto.categoria }}</p>
+                <p>Bs: ${{ producto.precio }}</p>
+                <p>Pesos: ${{ producto.precio_2 }}</p>
+                <p>Dolares: ${{ producto.precio_3 }}</p>
                 <p>Descripción: {{ producto.descripcion }}</p>
+                <p>Existencias: {{ producto.existencias }}</p>
               </div>
               <div class="col-12">
                 <img
@@ -41,7 +45,9 @@
           {% endfor %}
         </div>
       </div>
-      <a type="button" class="btn btn-primary" href="/tasks/">Regresar</a>
+      <a type="button" class="btn btn-primary" href="{% url 'home_productos' %}"
+        >Regresar</a
+      >
     </div>
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   </body>

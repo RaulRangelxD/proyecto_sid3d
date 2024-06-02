@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear</title>
+    <title>Crear Categoria</title>
     <link
       rel="stylesheet"
       href="{% static 'bootstrap/css/bootstrap.min.css' %}"
@@ -22,26 +22,9 @@
     <div class="container d-flex justify-content-center align-items-center">
       <div class="col-6">
         <div class="col-12">
-          <h2>Cargar Producto</h2>
+          <h2>Crear Categoria</h2>
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %} {{ form.nombre.label_tag }} {{ form.nombre }}
-            <br />
-            {{ form.categoria.label_tag }} {{ form.categoria }}
-            <a class="btn btn-success" href="{% url 'crear_categoria' %}"
-              >Crear</a
-            >
-            <br />
-            {{ form.precio.label_tag }} {{ form.precio }}
-            <br />
-            {{ form.precio_2.label_tag }} {{ form.precio_2 }}
-            <br />
-            {{ form.precio_3.label_tag }} {{ form.precio_3 }}
-            <br />
-            {{ form.existencias.label_tag }} {{ form.existencias }}
-            <br />
-            {{ form.descripcion.label_tag }} {{ form.descripcion }}
-            <br />
-            {{ form.imagen.label_tag }} {{ form.imagen }}
             <br />
             <button type="submit" class="btn btn-success mt-3">Guardar</button>
           </form>

@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render,redirect
 from .models import Producto
-from .forms import ProductoForm
+from .forms import ProductoForm, CategoriaForm
 
 def index(request):
     if request.user.is_authenticated:
@@ -26,6 +26,16 @@ def crear(request):
     else:
         form = ProductoForm()
     return render(request, 'cargar_producto.html', {'form': form})
+
+def crear_categoria(request):
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/crear/')
+    else:
+        form = CategoriaForm()
+    return render(request, 'crear_categoria.html', {'form': form})
 
 def borrar(request, nombre):
     producto = get_object_or_404(Producto, nombre=nombre)
