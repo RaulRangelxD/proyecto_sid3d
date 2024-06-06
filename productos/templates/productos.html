@@ -1,14 +1,11 @@
-{% load static %}
+{% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio</title>
-    <link
-      rel="stylesheet"
-      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
-    />
+    {% tailwind_css %}
     <style>
       body {
         background-image: url("{% static 'images/background.png' %}");
@@ -17,6 +14,70 @@
       }
     </style>
   </head>
+
+  <header class="bg-red-400 shadow px-5">
+    <div class="flex h-12 justify-between items-center">
+      <button
+        class="text-black hover:text-gray-500 hover:bg-red-500 focus:ring-1 focus:ring-red-500"
+      >
+        <svg
+          class="h-6 w-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 10h16M4 14h16M4 18h16"
+          />
+        </svg>
+      </button>
+
+      <a href="" class="text-slate-900 hover:rotate-180 duration-500">
+        <svg
+          class="h-8 w-8"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" />
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 3a4.5 4.5 0 0 0 0 9a4.5 4.5 0 0 1 0 9" />
+          <circle cx="12" cy="7.5" r=".5" fill="currentColor" />
+          <circle cx="12" cy="16.5" r=".5" fill="currentColor" />
+        </svg>
+      </a>
+      <div>
+        <button>
+          <svg
+            class="h-6 w-6 text-slate-900"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+        <button>
+          <img
+            src="https://ui-avatars.com/api?name=deivid vargas"
+            alt="Deivid Vargas"
+            class="h-6 w-6"
+          />
+        </button>
+      </div>
+    </div>
+  </header>
 
   <body>
     <div class="container">
