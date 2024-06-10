@@ -1,0 +1,3 @@
+.input-form {
+  @apply border border-gray-300 w-full rounded p-2 mb-4;
+}

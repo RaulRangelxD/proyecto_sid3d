@@ -75,5 +75,48 @@
         }
     </script>
 
+<<<<<<< Updated upstream
+=======
+<span class="mb-0 text-muted">
+  {% if msg %}
+    {{ msg | safe }}
+  {% else %}
+    Login 
+  {% endif %}
+</span>
+<br>
+<br>
+<form method="post">
+  {% csrf_token %}
+  <div class="form-group first input">
+    <label for="username">Usuario</label>
+    {{ form.username }}
+    {% if form.username.errors %}
+      <span class="text-error">{{ form.username.errors }}</span>
+    {% endif %}
+  </div>
+  <br>
+  <div class="form-group last mb-4">
+    <label for="password">Contraseña</label>
+    {{ form.password }}
+    {% if form.password.errors %}
+      <span class="text-error">{{ form.password.errors }}</span>
+    {% endif %}
+  </div>
+  <br>
+  <div class="d-flex mb-5 align-items-center">
+    <span class="ml-auto"><a href="#" class="forgot-pass">¿Olvidó su Contraseña?</a></span>
+    <br>
+    <br>
+    </label>
+    <label class="control control--checkbox mb-0"><span class="caption">Recuerdame</span>
+      <input type="checkbox" checked="checked"/>
+      <div class="control__indicator"></div>
+    </label>
+  </div>
+  <br>
+  <input type="submit" value="Acceder" class="btn btn-pill text-white btn-block btn-primary">
+</form>
+>>>>>>> Stashed changes
 </body>
 </html>
