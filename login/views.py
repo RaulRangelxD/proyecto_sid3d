@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from .forms import SignUpForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse_lazy
+from django.views import generic
+from .forms import CustomUserChangeForm
+from .models import User
 
 def index(request):
     return render(request, 'index.html')
@@ -57,3 +61,14 @@ def customer(request):
 
 def employee(request):
     return render(request, 'employee.html')
+
+
+def edit_user_view(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('login_view')  
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+        return render(request, 'user_edit.html', {'form': form})

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferrelectricos Ferta - Editar Usuario</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+        .font-family-karla { font-family: karla; }
+        .bg-custom {
+            background:linear-gradient(360deg,#313a88 -3%, #26243c 76%);
+        }
+    </style>
+    <script>
+        function togglePasswordVisibility(id) {
+            var passwordField = document.getElementById(id);
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+</head>
+<body class="bg-custom font-family-karla h-screen flex items-center justify-center">
+
+    <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
+        <div class="flex justify-center mb-6">
+            <a href="#">
+                <img src="{% static 'path/to/your/logo.png' %}" alt="Logo" class="h-16">
+            </a>
+        </div>
+        <h1 class="text-gray-700 text-center text-3xl mb-6">Editar Usuario</h1>
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Nombre de Usuario</label>
+                <input type="text" id="username" name="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                {{ form.username }}
+            </div>
+            <div>
+                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Correo</label>
+                <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div>
+                <label for="password1" class="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
+                <div class="relative">
+                    <input type="password" id="password1" name="password1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <button type="button" onclick="togglePasswordVisibility('password1')" class="absolute inset-y-0 right-0 flex items-center px-2">
+                        <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0c0 3.866-3.582 7-8 7s-8-3.134-8-7 3.582-7 8-7 8 3.134 8 7z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div>
+                <label for="password2" class="block text-gray-700 text-sm font-bold mb-2">Repita la Contraseña</label>
+                <div class="relative">
+                    <input type="password" id="password2" name="password2" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <button type="button" onclick="togglePasswordVisibility('password2')" class="absolute inset-y-0 right-0 flex items-center px-2">
+                        <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0c0 3.866-3.582 7-8 7s-8-3.134-8-7 3.582-7 8-7 8 3.134 8 7z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
