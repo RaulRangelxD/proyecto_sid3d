@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block content %}
+<body>
+  {% for producto in productos %}
+  <div>
+    <div>
+      <div>
+        <div>
+          <h4>{{ producto.nombre }}</h4>
+        </div>
+        <div>
+          <p>Precio: ${{ producto.precio }}</p>
+        </div>
+        <div>
+          <a type="button" class="btn btn-primary" href="ver/">Ver</a>
+          <a type="button" class="btn btn-primary" href="editar/{{ producto.nombre }}">Editar</a>
+          <a type="button" class="btn btn-primary" href="borrar/{{ producto.nombre }}">Borrar</a>
+        </div>
+
+        <div>
+          <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" />
+        </div>
+        <div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <a type="button" href="{% url 'logout' %}">Salir</a>
+  </div>
+</body>
+{% endblock %}

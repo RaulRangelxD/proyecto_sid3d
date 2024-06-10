@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crear</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet" />
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Karla:400,700&display=swap");
+      .font-family-karla {
+        font-family: karla;
+      }
+      body {
+        background-image: url("{% static 'images/background1.png' %}");
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+  </head>
+  {% block content %}
+  <body>
+    <!-- {% block sidebar %}texto de navegacion default???{% endblock %} -->
+    <h1>ERROR TEMPLATE VACIO!!!</h1>
+  </body>
+  {% endblock %}
+</html>

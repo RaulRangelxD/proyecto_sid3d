@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import Producto
+from .models import Producto, Categoria
 from .forms import ProductoForm, CategoriaForm
 
 def index(request):
@@ -11,7 +11,10 @@ def index(request):
         if  request.user.is_employee == True:
             print('Employee')
     form = Producto.objects.all()
-    return render(request, 'productos.html', {'form': form})
+    categoria = Categoria.objects.all()
+    for items in categoria:
+        print(items.nombre)
+    return render(request, 'productos.html', {'form': form, 'categoria': categoria})
 
 def ver(request):
     form = Producto.objects.all()
@@ -55,3 +58,15 @@ def editar(request, nombre):
     else:
         form = ProductoForm(instance=producto)
     return render(request, 'editar_producto.html', {'form': form, 'producto': producto})
+
+def busqueda(request, categoria):
+    productos = Producto.objects.all()
+    filtro=[]
+    for producto in productos:
+        print(producto.categoria.nombre.lower())
+        print(categoria.lower())
+        print('--------------')
+        if producto.categoria.nombre.lower() == categoria.lower():
+            filtro.append(producto)
+        
+    return render(request, 'busqueda.html', {'productos': filtro})

@@ -8,4 +8,5 @@ urlpatterns = [
     path('crear_categoria/', views.crear_categoria, name='crear_categoria'),
     path('borrar/<str:nombre>', views.borrar, name='borrar'),
     path('editar/<str:nombre>', views.editar, name='editar'),
+    path('busqueda/<categoria>', views.busqueda, name='busqueda'),
 ]

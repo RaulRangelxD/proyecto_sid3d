@@ -1,122 +1,82 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ferrelectricos Ferta</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet" />
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
-        .font-family-karla {
-            font-family: karla;
-        }
-        .bg-custom {
-            background: linear-gradient(360deg, #313a88 -3%, #26243c 76%);
-        }
+      @import url("https://fonts.googleapis.com/css?family=Karla:400,700&display=swap");
+      .font-family-karla {
+        font-family: karla;
+      }
+      .bg-custom {
+        background: linear-gradient(360deg, #313a88 -3%, #26243c 76%);
+      }
     </style>
-</head>
-<body class="bg-custom font-family-karla h-screen flex items-center justify-center">
-
+  </head>
+  <body class="bg-custom font-family-karla h-screen flex items-center justify-center">
     <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
-        <div class="flex justify-center mb-6">
-            <a href="#">
-                <img src="{% static 'path/to/your/logo.png' %}" alt="Logo" class="h-16">
-            </a>
+      <div class="flex justify-center mb-6">
+        <a href="#">
+          <img src="{% static 'path/to/your/logo.png' %}" alt="Logo" class="h-16" />
+        </a>
+      </div>
+      <p class="text-center text-3xl text-black mb-4">Bienvenido.</p>
+
+      {% if msg %}
+      <div class="text-center text-red-500 mb-4">{{ msg | safe }}</div>
+      {% endif %}
+
+      <form method="post" class="flex flex-col">
+        {% csrf_token %}
+        <div class="flex flex-col mb-4">
+          <label for="username" class="text-lg text-black">Usuario</label>
+          <input type="text" id="username" name="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+          {% if form.username.errors %}
+          <span class="text-error text-red-500">{{ form.username.errors }}</span>
+          {% endif %}
         </div>
-        <p class="text-center text-3xl text-black mb-4">Bienvenido.</p>
 
-        {% if msg %}
-            <div class="text-center text-red-500 mb-4">{{ msg | safe }}</div>
-        {% endif %}
+        <div class="flex flex-col mb-4">
+          <label for="password" class="text-lg text-black">Contraseña</label>
+          <div class="relative">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+            />
+            <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 flex items-center px-2">
+              <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0c0 3.866-3.582 7-8 7s-8-3.134-8-7 3.582-7 8-7 8 3.134 8 7z"></path>
+              </svg>
+            </button>
+          </div>
+          {% if form.password.errors %}
+          <span class="text-error text-red-500">{{ form.password.errors }}</span>
+          {% endif %}
+        </div>
 
-        <form method="post" class="flex flex-col">
-            {% csrf_token %}
-            <div class="flex flex-col mb-4">
-                <label for="username" class="text-lg text-black">Usuario</label>
-                <input type="text" id="username" name="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                {% if form.username.errors %}
-                    <span class="text-error text-red-500">{{ form.username.errors }}</span>
-                {% endif %}
-            </div>
+        <input type="submit" value="Acceder" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-4" />
 
-            <div class="flex flex-col mb-4">
-                <label for="password" class="text-lg text-black">Contraseña</label>
-                <div class="relative">
-                    <input type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                    <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 flex items-center px-2">
-                        <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0c0 3.866-3.582 7-8 7s-8-3.134-8-7 3.582-7 8-7 8 3.134 8 7z"></path>
-                        </svg>
-                    </button>
-                </div>
-                {% if form.password.errors %}
-                    <span class="text-error text-red-500">{{ form.password.errors }}</span>
-                {% endif %}
-            </div>
-
-            <input type="submit" value="Acceder" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-4">
-
-            <div class="text-center pt-4">
-                <p class="text-white">¿No tienes una cuenta? <a href="{% url 'register' %}" class="underline font-semibold">Regístrate aquí.</a></p>
-            </div>
-        </form>
+        <div class="text-center pt-4">
+          <p class="text-white">¿No tienes una cuenta? <a href="{% url 'register' %}" class="underline font-semibold">Regístrate aquí.</a></p>
+        </div>
+      </form>
     </div>
 
     <script>
-        function togglePasswordVisibility() {
-            var passwordField = document.getElementById('password');
-            var passwordFieldType = passwordField.getAttribute('type');
-            if (passwordFieldType == 'password') {
-                passwordField.setAttribute('type', 'text');
-            } else {
-                passwordField.setAttribute('type', 'password');
-            }
+      function togglePasswordVisibility() {
+        var passwordField = document.getElementById("password");
+        var passwordFieldType = passwordField.getAttribute("type");
+        if (passwordFieldType == "password") {
+          passwordField.setAttribute("type", "text");
+        } else {
+          passwordField.setAttribute("type", "password");
         }
+      }
     </script>
-
-<<<<<<< Updated upstream
-=======
-<span class="mb-0 text-muted">
-  {% if msg %}
-    {{ msg | safe }}
-  {% else %}
-    Login 
-  {% endif %}
-</span>
-<br>
-<br>
-<form method="post">
-  {% csrf_token %}
-  <div class="form-group first input">
-    <label for="username">Usuario</label>
-    {{ form.username }}
-    {% if form.username.errors %}
-      <span class="text-error">{{ form.username.errors }}</span>
-    {% endif %}
-  </div>
-  <br>
-  <div class="form-group last mb-4">
-    <label for="password">Contraseña</label>
-    {{ form.password }}
-    {% if form.password.errors %}
-      <span class="text-error">{{ form.password.errors }}</span>
-    {% endif %}
-  </div>
-  <br>
-  <div class="d-flex mb-5 align-items-center">
-    <span class="ml-auto"><a href="#" class="forgot-pass">¿Olvidó su Contraseña?</a></span>
-    <br>
-    <br>
-    </label>
-    <label class="control control--checkbox mb-0"><span class="caption">Recuerdame</span>
-      <input type="checkbox" checked="checked"/>
-      <div class="control__indicator"></div>
-    </label>
-  </div>
-  <br>
-  <input type="submit" value="Acceder" class="btn btn-pill text-white btn-block btn-primary">
-</form>
->>>>>>> Stashed changes
-</body>
+  </body>
 </html>
