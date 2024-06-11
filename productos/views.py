@@ -25,7 +25,7 @@ def crear(request):
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('/productos/')
+            return redirect('home_productos')
     else:
         form = ProductoForm()
     return render(request, 'cargar_producto.html', {'form': form})
@@ -35,7 +35,7 @@ def crear_categoria(request):
         form = CategoriaForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('/crear/')
+            return redirect('crear')
     else:
         form = CategoriaForm()
     return render(request, 'crear_categoria.html', {'form': form})
@@ -45,7 +45,7 @@ def borrar(request, nombre):
     if request.method == 'POST':
         producto.imagen.delete()
         producto.delete()
-        return redirect('/productos/')
+        return redirect('home_productos')
     return render(request, 'confirmar_eliminacion.html', {'producto': producto})
 
 def editar(request, nombre):
@@ -54,7 +54,7 @@ def editar(request, nombre):
         form = ProductoForm(request.POST, request.FILES, instance=producto)
         if form.is_valid():
             form.save()
-            return redirect('/productos/')
+            return redirect('home_productos')
     else:
         form = ProductoForm(instance=producto)
     return render(request, 'editar_producto.html', {'form': form, 'producto': producto})
