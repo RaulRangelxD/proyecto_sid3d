@@ -8,6 +8,7 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     precio_2 = models.DecimalField(max_digits=10, decimal_places=2)
     precio_3 = models.DecimalField(max_digits=10, decimal_places=2)
+    precio_compra = models.ForeignKey('Compra', on_delete=models.CASCADE, default=1, null=True, blank=True) 
     descripcion = models.TextField()
     imagen = models.ImageField(upload_to='productos/')
     existencias = models.IntegerField()
@@ -21,30 +22,33 @@ class Venta(models.Model):
     id = models.AutoField(primary_key=True)
     id_producto = models.ForeignKey('Producto', on_delete=models.CASCADE)
     cantidad = models.IntegerField()
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
-    fecha = models.DateField(auto_now_add=True)
-    cedula = models.CharField(max_length=255)
+    precio_venta = models.DecimalField(max_digits=10, decimal_places=2)
+    fecha_venta = models.DateField(auto_now_add=True)
+    cedula_venta = models.CharField(max_length=255)
     cliente_venta = models.CharField(max_length=255)
-    sector = models.CharField(max_length=255)
-    telefono = models.CharField(max_length=255)
+    sector_venta = models.CharField(max_length=255)
+    telefono_venta = models.CharField(max_length=255)
 
 class Compra(models.Model):
     id = models.AutoField(primary_key=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     id_producto = models.ForeignKey('Producto', on_delete=models.CASCADE)
+    rif_cedula_compra = models.CharField(max_length=255,default='1')
+    sector_compra = models.CharField(max_length=255,default='1')
+    telefono_compra = models.CharField(max_length=255,default='1')
     fecha = models.DateField(auto_now_add=True)
     proveedor = models.CharField(max_length=255)
 
 class Ingresos(models.Model):
     id = models.AutoField(primary_key=True)
     id_venta = models.ForeignKey('Venta', on_delete=models.CASCADE)
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    total_ingresos = models.DecimalField(max_digits=10, decimal_places=2)
     fecha = models.DateField(auto_now_add=True)
 
 class Egresos(models.Model):
     id = models.AutoField(primary_key=True)
     id_compra = models.ForeignKey('Compra', on_delete=models.CASCADE)
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    total_egresos = models.DecimalField(max_digits=10, decimal_places=2)
     fecha = models.DateField(auto_now_add=True)
 
 class Factura(models.Model):
