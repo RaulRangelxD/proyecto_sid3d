@@ -17,6 +17,8 @@ class Producto(models.Model):
 class Categoria(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
+    def __str__(self):
+        return self.nombre
    
 class Venta(models.Model):
     id = models.AutoField(primary_key=True)
@@ -55,7 +57,6 @@ class Factura(models.Model):
     id = models.AutoField(primary_key=True)
     id_venta = models.ForeignKey('Venta', on_delete=models.CASCADE)
     fecha = models.DateField(auto_now_add=True)
-
 
 class Cliente(models.Model):
    id = models.AutoField(primary_key=True)
