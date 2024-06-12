@@ -8,7 +8,6 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     precio_2 = models.DecimalField(max_digits=10, decimal_places=2)
     precio_3 = models.DecimalField(max_digits=10, decimal_places=2)
-    precio_compra = models.ForeignKey('Compra', on_delete=models.CASCADE, default=1, null=True, blank=True) 
     descripcion = models.TextField()
     imagen = models.ImageField(upload_to='productos/')
     existencias = models.IntegerField()
