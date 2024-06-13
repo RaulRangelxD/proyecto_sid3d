@@ -68,5 +68,5 @@ def busqueda(request, categoria):
         print('--------------')
         if producto.categoria.nombre.lower() == categoria.lower():
             filtro.append(producto)
-        
+
     return render(request, 'busqueda.html', {'productos': filtro})

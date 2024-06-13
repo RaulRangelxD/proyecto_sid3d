@@ -1,32 +1,63 @@
 {% extends "base.html" %} {% block content %}
 <body>
-  <div class="h-screen flex items-center justify-center">
+  <div class="container mx-auto flex items-center justify-center mt-5">
     <div class="bg-white p-8 rounded shadow-lg text-center">
       <div class="">
-        <h2 class="p-3">Cargar Producto</h2>
+        <h2 class="p-3 font-bold">Cargar Producto</h2>
         <form method="post" enctype="multipart/form-data">
           <div class="pb-4">
-            {% csrf_token %} {{ form.nombre.label_tag }} {{ form.nombre }}
-            <br />
-            {{ form.categoria.label_tag }} {{ form.categoria }}
-            <a class="btn btn-success" href="{% url 'crear_categoria' %}">Crear</a>
-            <br />
-            {{ form.precio.label_tag }} {{ form.precio }}
-
-            <br />
-            {{ form.precio_2.label_tag }} {{ form.precio_2 }}
-            <br />
-            {{ form.precio_3.label_tag }} {{ form.precio_3 }}
-            <br />
-            {{ form.existencias.label_tag }} {{ form.existencias }}
-            <br />
-            {{ form.descripcion.label_tag }} {{ form.descripcion }}
-            <br />
-            {{ form.imagen.label_tag }} {{ form.imagen }}
-            <br />
+            <div>
+              {% csrf_token %}
+              <p class="text-left font-bold">{{ form.nombre.label_tag }}</p>
+              {{ form.nombre }}
+            </div>
+            <div>
+              <p class="text-left font-bold">{{ form.categoria.label_tag }}</p>
+              <div class="flex items-start content-start">
+                {{ form.categoria }}
+                <a
+                  class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-500 rounded-full shadow ripple hover:shadow-lg hover:bg-gray-200 focus:outline-none mx-2"
+                  href="{% url 'crear_categoria' %}"
+                  >Crear</a
+                >
+              </div>
+            </div>
+            <div>
+              <p class="text-left font-bold">{{ form.precio.label_tag }}</p>
+              {{ form.precio }}
+            </div>
+            <div>
+              <p class="text-left font-bold">{{ form.precio_2.label_tag }}</p>
+              {{ form.precio_2 }}
+            </div>
+            <div>
+              <p class="text-left font-bold">{{ form.precio_3.label_tag }}</p>
+              {{ form.precio_3 }}
+            </div>
+            <div>
+              <p class="text-left font-bold">
+                {{ form.existencias.label_tag }}
+              </p>
+              {{ form.existencias }}
+            </div>
+            <div>
+              <p class="text-left font-bold">
+                {{ form.descripcion.label_tag }}
+              </p>
+              {{ form.descripcion }}
+            </div>
+            <div>
+              <p class="text-left font-bold">{{form.imagen.label_tag }}</p>
+              {{ form.imagen }}
+            </div>
           </div>
 
-          <button type="submit" class="btn btn-blue">Guardar</button>
+          <button
+            type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Guardar
+          </button>
         </form>
       </div>
     </div>

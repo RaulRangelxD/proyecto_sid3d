@@ -1,14 +1,25 @@
 {% extends "base.html" %} {% block content %}
 <body>
   {% for cat in categoria %}
-  <a type="button" class="btn btn-primary me-3" href="busqueda/{{ cat.nombre }}">{{ cat.nombre }}</a>
+  <a type="button" class="btn btn-primary me-3" href="busqueda/{{ cat.nombre }}"
+    >{{ cat.nombre }}</a
+  >
   {% endfor %}
 
   <a href="#" class="button-test"> Link </a>
   <div class="container">
-    <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href="{% url 'crear' %}">Crear</a>
+    <a
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      href="{% url 'crear' %}"
+      >Crear</a
+    >
     <div>
-      <a type="button" class="btn btn-pill text-white btn-block btn-primary" href="{% url 'login_view' %}">Iniciar Sesion</a>
+      <a
+        type="button"
+        class="btn btn-pill text-white btn-block btn-primary"
+        href="{% url 'login_view' %}"
+        >Iniciar Sesion</a
+      >
     </div>
     {% for producto in form %}
     <div class="col-12 mt-3 mb-3">
@@ -22,21 +33,42 @@
           </div>
 
           <div class="col-9 text-end">
-            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="img-fluid rounded col-2 shadow-lg rounded" />
+            <img
+              src="{{ producto.imagen.url }}"
+              alt="{{ producto.nombre }}"
+              class="img-fluid rounded col-2 shadow-lg rounded"
+            />
           </div>
           <div class="row">
             <div class="col-12">
               <div class="justify-content-end align-items-end">
-                <a type="button" class="btn btn-secondary me-3" href="ver/">Ver</a>
-                <a type="button" class="btn btn-primary me-3" href="editar/{{ producto.nombre }}">Editar</a>
-                <a type="button" class="btn btn-danger me-3" href="borrar/{{ producto.nombre }}">Borrar</a>
+                <a type="button" class="btn btn-secondary me-3" href="ver/"
+                  >Ver</a
+                >
+                <a
+                  type="button"
+                  class="btn btn-primary me-3"
+                  href="editar/{{ producto.nombre }}"
+                  >Editar</a
+                >
+                <a
+                  type="button"
+                  class="btn btn-danger me-3"
+                  href="borrar/{{ producto.nombre }}"
+                  >Borrar</a
+                >
               </div>
             </div>
           </div>
         </div>
       </div>
       {% endfor %}
-      <a type="button" class="btn btn-pill text-white btn-block btn-primary" href="{% url 'logout' %}">Salir</a>
+      <a
+        type="button"
+        class="btn btn-pill text-white btn-block btn-primary"
+        href="{% url 'logout' %}"
+        >Salir</a
+      >
     </div>
   </div>
 </body>
