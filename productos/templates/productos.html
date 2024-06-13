@@ -1,74 +1,152 @@
 {% extends "base.html" %} {% block content %}
 <body>
   {% for cat in categoria %}
-  <a type="button" class="btn btn-primary me-3" href="busqueda/{{ cat.nombre }}"
-    >{{ cat.nombre }}</a
-  >
+  <div class="mt-5">
+    <a
+      type="button"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      href="busqueda/{{ cat.nombre }}"
+      >{{ cat.nombre }}</a
+    >
+  </div>
   {% endfor %}
 
-  <a href="#" class="button-test"> Link </a>
-  <div class="container">
+  <div class="mt-5">
     <a
       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       href="{% url 'crear' %}"
       >Crear</a
     >
-    <div>
+    <div class="mt-5">
       <a
         type="button"
-        class="btn btn-pill text-white btn-block btn-primary"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         href="{% url 'login_view' %}"
         >Iniciar Sesion</a
       >
     </div>
-    {% for producto in form %}
-    <div class="col-12 mt-3 mb-3">
-      <div class="alert alert-dark" role="alert">
-        <div class="row justify-content-center">
-          <div class="col-1">
-            <h4 class="mb-4">{{ producto.nombre }}</h4>
-          </div>
-          <div class="col-1">
-            <p>Precio: ${{ producto.precio }}</p>
-          </div>
-
-          <div class="col-9 text-end">
-            <img
-              src="{{ producto.imagen.url }}"
-              alt="{{ producto.nombre }}"
-              class="img-fluid rounded col-2 shadow-lg rounded"
-            />
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="justify-content-end align-items-end">
-                <a type="button" class="btn btn-secondary me-3" href="ver/"
-                  >Ver</a
-                >
-                <a
-                  type="button"
-                  class="btn btn-primary me-3"
-                  href="editar/{{ producto.nombre }}"
-                  >Editar</a
-                >
-                <a
-                  type="button"
-                  class="btn btn-danger me-3"
-                  href="borrar/{{ producto.nombre }}"
-                  >Borrar</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
+    <div class="mt-5">
       <a
         type="button"
-        class="btn btn-pill text-white btn-block btn-primary"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         href="{% url 'logout' %}"
         >Salir</a
       >
+    </div>
+    <div class="mt-5 grid grid-cols-1 gap-4 w-full">
+      {% for producto in form %}
+      <div class="flex flex-col items-center w-full">
+        <div
+          class="w-full p-4 border border-gray-300 rounded-lg shadow flex flex-col md:flex-row items-center mx-4 bg-gray-200 border-b"
+        >
+          <table>
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                >
+                  Nombre
+                </th>
+                <th
+                  scope="col"
+                  class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                >
+                  Precio
+                </th>
+                <th
+                  scope="col"
+                  class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                >
+                  Imagen
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr></tr>
+              <tr
+                class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+              >
+                <td
+                  class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                >
+                  {{ producto.nombre }}
+                </td>
+                <td
+                  class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                >
+                  {{ producto.precio }}
+                </td>
+                <td
+                  class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                >
+                  <img
+                    src="{{ producto.imagen.url }}"
+                    alt="{{ producto.nombre }}"
+                    class="w-full h-48 object-contain"
+                  />
+                </td>
+                <td>
+                  <div class="">
+                    <a
+                      type="button"
+                      class="py-2 px-4 shadow-md no-underline rounded-full bg-red text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white hover:bg-red-light focus:outline-none active:shadow-none bg-blue-400"
+                      href="ver/"
+                      >Ver</a
+                    >
+                    <a
+                      type="button"
+                      class="py-2 px-4 shadow-md no-underline rounded-full bg-red text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white hover:bg-red-light focus:outline-none active:shadow-none bg-green-300"
+                      href="editar/{{ producto.nombre }}"
+                      >Editar</a
+                    >
+                    <a
+                      type="button"
+                      class="py-2 px-4 shadow-md no-underline rounded-full bg-red text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white hover:bg-red-light focus:outline-none active:shadow-none bg-red-600 me-2"
+                      href="borrar/{{ producto.nombre }}"
+                      >Borrar</a
+                    >
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="mb-4">
+            <h4 class="text-gray-900 px-6 py-4 text-left">
+              {{ producto.nombre }}
+            </h4>
+          </div>
+          <div class="text-lg font-semibold">
+            <p>{{ producto.precio }}</p>
+          </div>
+
+          <div class="mb-4">
+            <img
+              src="{{ producto.imagen.url }}"
+              alt="{{ producto.nombre }}"
+              class="w-full h-48 object-contain"
+            />
+          </div>
+
+          <div class="">
+            <a type="button" class="btn btn-secondary me-3" href="ver/">Ver</a>
+            <a
+              type="button"
+              class="btn btn-primary me-3"
+              href="editar/{{ producto.nombre }}"
+              >Editar</a
+            >
+            <a
+              type="button"
+              class="btn btn-danger me-3"
+              href="borrar/{{ producto.nombre }}"
+              >Borrar</a
+            >
+          </div>
+        </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </body>
