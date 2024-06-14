@@ -15,14 +15,33 @@
             background: linear-gradient(360deg, #313a88 -3%, #26243c 76%);
             height: 100vh;
         }
+    </style><!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferrelectricos Ferta - Registro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+        .font-family-karla {
+            font-family: karla;
+        }
+        .bg-custom {
+            background: linear-gradient(360deg, #313a88 -3%, #26243c 76%);
+            height: 200vh;
+        }
     </style>
 </head>
 <body class="font-family-karla bg-custom">
 
     <div class="flex items-center justify-center h-full">
-        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
-            <div class="flex justify-center mb-4">
-                <a href="#" class="bg-black text-white font-bold text-xl p-4">Logo</a>
+        <div class="w-4/5 max-w-xl bg-white rounded-lg shadow-lg p-9">
+            <div class="flex justify-center mb-9">
+                <a href="#">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-40" />
+                </a>
             </div>
             <p class="text-center text-3xl mb-4">Registro</p>
 
@@ -47,7 +66,27 @@
                         <span class="text-error text-red-500">{{ form.email.errors }}</span>
                     {% endif %}
                 </div>
-
+                <div class="flex flex-col mb-4">
+                    <label for="first_name" class="text-lg">Nombre</label>
+                    <input type="text" id="first_name" name="first_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                    {% if form.first_name.errors %}
+                        <span class="text-error text-red-500">{{ form.first_name.errors }}</span>
+                    {% endif %}
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label for="last_name" class="text-lg">Apellido</label>
+                    <input type="text" id="last_name" name="last_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                    {% if form.last_name.errors %}
+                        <span class="text-error text-red-500">{{ form.last_name.errors }}</span>
+                    {% endif %}
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label for="cedula" class="text-lg">Cédula</label>
+                    <input type="text" id="cedula" name="cedula" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                    {% if form.cedula.errors %}
+                        <span class="text-error text-red-500">{{ form.cedula.errors }}</span>
+                    {% endif %}
+                </div>
                 <div class="flex flex-col mb-4">
                     <label for="password1" class="text-lg">Contraseña</label>
                     <div class="relative">
@@ -78,7 +117,42 @@
                     {% endif %}
                 </div>
 
-                <input type="submit" value="Registrarse" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-4">
+                <div class="flex flex-col mb-4">
+                    <div class="pt-4">
+                        <p>Por favor escoja el rol, para crear satisfactoriamente su usuario.</p>
+                        <div class="flex items-center">
+                            <label class="control control--checkbox mb-0 mr-4">
+                                <span class="caption">Admin</span>
+                                {{ form.is_admin }}
+                            </label>
+                            <label class="control control--checkbox mb-0 mr-4">
+                                <span class="caption">Cliente</span>
+                                {{ form.is_customer }}
+                            </label>
+                            <label class="control control--checkbox mb-0">
+                                <span class="caption">Empleado</span>
+                                {{ form.is_employee }}
+                            </label>
+                        </div>
+                    </div>
+                    {% if form.non_field_errors %}
+                        <span class="text-error text-red-500">{{ form.non_field_errors }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="flex flex-col mb-4">
+                    <label class="text-lg">Seleccione una imagen de perfil</label>
+                    <div class="flex items-center justify-around">
+                        {% for value, label in form.fields.profile.choices %}
+                            <label>
+                                <input type="radio" name="profile" value="{{ value }}">
+                                <img src="{% static 'images/' %}{{ value }}.jpg" alt="{{ label }}" class="w-24 h-24 object-contain">
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <input type="submit" value="Registrarse" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-4 rounded focus:outline-none focus:shadow-outline">
 
                 <div class="text-center pt-4">
                     <p>¿Ya tienes una cuenta? <a href="{% url 'login_view' %}" class="underline font-semibold">Inicia sesión aquí.</a></p>

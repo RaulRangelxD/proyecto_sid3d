@@ -20,7 +20,7 @@
     <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
       <div class="flex justify-center mb-6">
         <a href="#">
-          <img src="{% static 'path/to/your/logo.png' %}" alt="Logo" class="h-16" />
+          <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-40" />
         </a>
       </div>
       <p class="text-center text-3xl text-black mb-4">Bienvenido.</p>
@@ -59,10 +59,10 @@
           {% endif %}
         </div>
 
-        <input type="submit" value="Acceder" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-4" />
+        <input type="submit" value="Acceder" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-4 rounded focus:outline-none focus:shadow-outline" />
 
         <div class="text-center pt-4">
-          <p class="text-white">¿No tienes una cuenta? <a href="{% url 'register' %}" class="underline font-semibold">Regístrate aquí.</a></p>
+          <p class="text-black">¿No tienes una cuenta? <a href="{% url 'register' %}" class="underline font-semibold">Regístrate aquí.</a></p>
         </div>
       </form>
     </div>

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from .forms import SignUpForm, LoginForm
-from django.contrib.auth import authenticate, login, logout
+from .forms import SignUpForm, LoginForm, CustomUserChangeForm, CustomPasswordChangeForm
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views import generic
-from .forms import CustomUserChangeForm
 from .models import User
 
 def index(request):
@@ -14,7 +15,9 @@ def register(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.profile = form.cleaned_data.get('profile')
+            user.save()
             msg = 'El usuario ha sido creado'
             return redirect('login_view')  
         else:
@@ -33,13 +36,16 @@ def login_view(request):
             user = authenticate(username=Username, password=Password)
             if user is not None and user.is_admin:
                 login(request,user)
-                return redirect('adminpage')
+                return redirect('home_productos')
             elif user is not None and user.is_customer:
                 login(request,user)
-                return redirect('customer')
+                return redirect('home_productos')
             elif user is not None and user.is_employee:
                 login(request,user)
-                return redirect('employee')
+                return redirect('home_productos')
+            elif user is not None:
+                login(request,user)
+                return redirect('home_productos')
             else:
                 msg='credenciales invalidas'
         else:
@@ -48,27 +54,38 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('home')
-
-def home(request):
-    return redirect('/productos/')
-
-def admin(request):
-    return render(request, 'admin.html')
-
-def customer(request):
-    return render(request, 'customer.html')
-
-def employee(request):
-    return render(request, 'employee.html')
-
+    return redirect('home_productos')
 
 def edit_user_view(request):
+    usuario = request.user
+    avatar = str(f'images/{usuario.profile}.jpg')
     if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            user.profile = form.cleaned_data.get('profile')
+            user.save()
             return redirect('login_view')  
     else:
         form = CustomUserChangeForm(instance=request.user)
-        return render(request, 'user_edit.html', {'form': form})
+        return render(request, 'user_edit.html', {'form': form, 'avatar' : avatar})
+    
+def profile(request):
+    usuario = request.user
+    avatar = str(f'images/{usuario.profile}.jpg')
+    return render(request, 'perfil.html', {'usuario': usuario, 'avatar' : avatar})
+
+@login_required
+def edit_password(request):
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Importante para mantener la sesión del usuario
+            messages.success(request, '¡Tu contraseña ha sido actualizada exitosamente!')
+            return redirect('home_productos')
+        else:
+            messages.error(request, 'Por favor corrige los errores a continuación.')
+    else:
+        form = CustomPasswordChangeForm(request.user)
+    return render(request, 'edit_password.html', {'form': form})

@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet" />
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Karla:400,700&display=swap");
+      .font-family-karla {
+        font-family: karla;
+      }
+      .bg-custom {
+        background: linear-gradient(360deg, #313a88 -3%, #26243c 76%);
+        height: 100vh;
+      }
+      .avatar {
+        border-radius: 50%;
+      }
+    </style>
+</head>
+<body class="font-family-karla bg-custom">
+
+  <div class="flex items-center justify-center h-full">
+      <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+          <div class="flex justify-center mb-6">
+              <a href="#">
+                <img src="{% static avatar %}" alt="{{ usuario.username }}" class="w-48 h-48 object-contain avatar" />
+              </a>
+          </div>
+          <p class="text-center text-3xl mb-4">Perfil</p>
+
+          {% if msg %}
+              <div class="text-center text-red-500 mb-4">{{ msg | safe }}</div>
+          {% endif %}
+  
+          <p><strong>Nombre:</strong> {{ usuario.first_name }}</p>
+          <p><strong>Apellido:</strong> {{ usuario.last_name }}</p>
+          <p><strong>Cédula:</strong> {{ usuario.cedula }}</p>
+          <p><strong>Username:</strong> {{ usuario.username }}</p>
+          <p><strong>Email:</strong> {{ usuario.email }}</p>
+
+          <div class="mt-5">
+            <a
+              type="button"
+              class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-4 rounded focus:outline-none focus:shadow-outline"
+              href="{% url 'user_edit' %}"
+              >Editar Usuario</a
+            >
+            <a
+              type="button"
+              class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-4 rounded focus:outline-none focus:shadow-outline"
+              href="{% url 'edit_password' %}"
+              >Editar Contraseña</a
+            >
+          </div>
+      </div>
+  </div>
+
+</body>
+</html>
