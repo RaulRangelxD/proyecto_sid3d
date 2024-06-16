@@ -1,6 +1,10 @@
 from django.shortcuts import get_object_or_404, render,redirect
 from .models import Producto, Categoria
 from .forms import ProductoForm, CategoriaForm
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+import sys
 
 def index(request):
     if request.user.is_authenticated:
@@ -12,23 +16,33 @@ def index(request):
             print('Employee')
     form = Producto.objects.all()
     categoria = Categoria.objects.all()
-    for items in categoria:
-        print(items.nombre)
     return render(request, 'productos.html', {'form': form, 'categoria': categoria})
 
 def ver(request):
     form = Producto.objects.all()
-    return render(request, 'ver_producto.html', {'form': form})
+    categoria = Categoria.objects.all()
+    return render(request, 'ver_producto.html', {'form': form, 'categoria': categoria})
 
 def crear(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            producto = form.save(commit=False)
+            imagen = request.FILES['imagen']
+            
+            img = Image.open(imagen)
+            img = img.resize((500, 500))
+            img_io = BytesIO()
+            img.save(img_io, format='WEBP')
+            img_file = InMemoryUploadedFile(img_io, 'ImageField', f"{producto.nombre}.webp", 'image/webp', sys.getsizeof(img_io), None)
+
+            producto.imagen = img_file
+            producto.save()
             return redirect('home_productos')
     else:
         form = ProductoForm()
-    return render(request, 'cargar_producto.html', {'form': form})
+        categoria = Categoria.objects.all()
+    return render(request, 'cargar_producto.html', {'form': form, 'categoria': categoria})
 
 def crear_categoria(request):
     if request.method == 'POST':
@@ -38,7 +52,8 @@ def crear_categoria(request):
             return redirect('crear')
     else:
         form = CategoriaForm()
-    return render(request, 'crear_categoria.html', {'form': form})
+        categoria = Categoria.objects.all()
+    return render(request, 'crear_categoria.html', {'form': form, 'categoria': categoria})
 
 def borrar(request, nombre):
     producto = get_object_or_404(Producto, nombre=nombre)
@@ -46,7 +61,8 @@ def borrar(request, nombre):
         producto.imagen.delete()
         producto.delete()
         return redirect('home_productos')
-    return render(request, 'confirmar_eliminacion.html', {'producto': producto})
+    categoria = Categoria.objects.all()
+    return render(request, 'confirmar_eliminacion.html', {'producto': producto, 'categoria': categoria})
 
 def editar(request, nombre):
     producto = get_object_or_404(Producto, nombre=nombre)
@@ -57,16 +73,14 @@ def editar(request, nombre):
             return redirect('home_productos')
     else:
         form = ProductoForm(instance=producto)
-    return render(request, 'editar_producto.html', {'form': form, 'producto': producto})
+        categoria = Categoria.objects.all()
+    return render(request, 'editar_producto.html', {'form': form, 'producto': producto, 'categoria': categoria})
 
 def busqueda(request, categoria):
     productos = Producto.objects.all()
     filtro=[]
     for producto in productos:
-        print(producto.categoria.nombre.lower())
-        print(categoria.lower())
-        print('--------------')
         if producto.categoria.nombre.lower() == categoria.lower():
             filtro.append(producto)
-
-    return render(request, 'busqueda.html', {'productos': filtro})
+    categoria = Categoria.objects.all()
+    return render(request, 'busqueda.html', {'productos': filtro, 'categoria': categoria})

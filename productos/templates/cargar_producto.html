@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block title %}
+<title>Crea Producto</title>
+{% endblock %} {% block content %}
 <body>
   <div class="container mx-auto flex items-center justify-center mt-5">
     <div class="bg-white p-8 rounded shadow-lg text-center">
@@ -35,15 +37,11 @@
               {{ form.precio_3 }}
             </div>
             <div>
-              <p class="text-left font-bold">
-                {{ form.existencias.label_tag }}
-              </p>
+              <p class="text-left font-bold">{{ form.existencias.label_tag }}</p>
               {{ form.existencias }}
             </div>
             <div>
-              <p class="text-left font-bold">
-                {{ form.descripcion.label_tag }}
-              </p>
+              <p class="text-left font-bold">{{ form.descripcion.label_tag }}</p>
               {{ form.descripcion }}
             </div>
             <div>
@@ -52,12 +50,7 @@
             </div>
           </div>
 
-          <button
-            type="submit"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Guardar
-          </button>
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Guardar</button>
         </form>
       </div>
     </div>

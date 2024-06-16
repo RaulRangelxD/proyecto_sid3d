@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block title %}
+<title>Ver</title>
+{% endblock %} {% block content %}
 <body>
   <div class="container">
     <div class="col-12 mt-4">
@@ -16,20 +18,14 @@
               <p>Existencias: {{ producto.existencias }}</p>
             </div>
             <div class="col-12">
-              <img
-                src="{{ producto.imagen.url }}"
-                alt="{{ producto.nombre }}"
-                class="img-fluid rounded col-10 shadow-lg rounded"
-              />
+              <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="img-fluid rounded col-10 shadow-lg rounded" />
             </div>
           </div>
         </div>
         {% endfor %}
       </div>
     </div>
-    <a type="button" class="btn btn-primary" href="{% url 'home_productos' %}"
-      >Regresar</a
-    >
+    <a type="button" class="btn btn-primary" href="{% url 'home_productos' %}">Regresar</a>
   </div>
 </body>
 {% endblock %}

@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block title %}
+<title>Busqueda</title>
+{% endblock %} {% block content %}
 <body>
   {% for producto in productos %}
   <div>
@@ -12,18 +14,8 @@
         </div>
         <div>
           <a type="button" class="btn btn-primary" href="ver/">Ver</a>
-          <a
-            type="button"
-            class="btn btn-primary"
-            href="editar/{{ producto.nombre }}"
-            >Editar</a
-          >
-          <a
-            type="button"
-            class="btn btn-primary"
-            href="borrar/{{ producto.nombre }}"
-            >Borrar</a
-          >
+          <a type="button" class="btn btn-primary" href="editar/{{ producto.nombre }}">Editar</a>
+          <a type="button" class="btn btn-primary" href="borrar/{{ producto.nombre }}">Borrar</a>
         </div>
 
         <div>
