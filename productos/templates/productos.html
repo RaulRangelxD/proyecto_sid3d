@@ -2,23 +2,57 @@
 <div class="container grid grid-cols-1 gap-4 w-full">
   {% for producto in form %}
   <div class="flex flex-col items-center w-full">
-    <div class="w-full border border-gray-300 rounded-lg shadow flex flex-col bg-gray-200 border-b mb-4">
+    <div
+      class="w-full border border-gray-300 rounded-lg shadow flex flex-col bg-gray-200 border-b mb-4"
+    >
       <div class="table w-full">
         <div class="table-header-group">
           <div class="table-row">
-            <div class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Nombre</div>
-            <div class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Precio</div>
-            <div class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Imagen</div>
-            <div class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Opciones</div>
+            <div
+              class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center"
+            >
+              Nombre
+            </div>
+            <div
+              class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center"
+            >
+              Precio
+            </div>
+            <div
+              class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center"
+            >
+              Imagen
+            </div>
+            <div
+              class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center"
+            >
+              Opciones
+            </div>
           </div>
         </div>
 
         <div class="table-row-group">
-          <div class="table-row bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-            <div class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ producto.nombre }}</div>
-            <div class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ producto.precio }}</div>
-            <div class="table-cell flex text-sm text-gray-900 font-light px-6 py-4 justify-center">
-              <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="w-40 h-40 object-contain rounded" />
+          <div
+            class="table-row bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+          >
+            <div
+              class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center"
+            >
+              {{ producto.nombre }}
+            </div>
+            <div
+              class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center"
+            >
+              {{ producto.precio }}
+            </div>
+            <div
+              class="table-cell flex text-sm text-gray-900 font-light px-6 py-4 justify-center"
+            >
+              <img
+                src="{{ producto.imagen.url }}"
+                alt="{{ producto.nombre }}"
+                class="w-40 h-40 object-contain rounded"
+              />
             </div>
             <div class="table-cell place-content-center text-center">
               <a
@@ -44,6 +78,7 @@
         </div>
       </div>
     </div>
+
     {% endfor %}
   </div>
 </div>
