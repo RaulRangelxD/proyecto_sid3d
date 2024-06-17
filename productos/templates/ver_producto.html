@@ -1,31 +1,29 @@
 {% extends "base.html" %} {% block title %}
 <title>Ver</title>
 {% endblock %} {% block content %}
-<body>
-  <div class="container">
-    <div class="col-12 mt-4">
-      <div class="row justify-content-center align-items-center">
-        {% for producto in form %}
-        <div class="col-3">
-          <div class="row alert alert-dark me-2">
-            <div class="col-12">
-              <h4 class="mb-4">{{ producto.nombre }}</h4>
-              <p>Categoria: {{ producto.categoria }}</p>
-              <p>Bs: ${{ producto.precio }}</p>
-              <p>Pesos: ${{ producto.precio_2 }}</p>
-              <p>Dolares: ${{ producto.precio_3 }}</p>
-              <p>Descripción: {{ producto.descripcion }}</p>
-              <p>Existencias: {{ producto.existencias }}</p>
-            </div>
-            <div class="col-12">
-              <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="img-fluid rounded col-10 shadow-lg rounded" />
-            </div>
+<div class="container">
+  <div class="col-12 mt-4">
+    <div class="row justify-content-center align-items-center">
+      {% for producto in form %}
+      <div class="col-3">
+        <div class="row alert alert-dark me-2">
+          <div class="col-12">
+            <h4 class="mb-4">{{ producto.nombre }}</h4>
+            <p>Categoria: {{ producto.categoria }}</p>
+            <p>Bs: ${{ producto.precio }}</p>
+            <p>Pesos: ${{ producto.precio_2 }}</p>
+            <p>Dolares: ${{ producto.precio_3 }}</p>
+            <p>Descripción: {{ producto.descripcion }}</p>
+            <p>Existencias: {{ producto.existencias }}</p>
+          </div>
+          <div class="col-12">
+            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="img-fluid rounded col-10 shadow-lg rounded" />
           </div>
         </div>
-        {% endfor %}
       </div>
+      {% endfor %}
     </div>
-    <a type="button" class="btn btn-primary" href="{% url 'home_productos' %}">Regresar</a>
   </div>
-</body>
+  <a type="button" class="btn btn-primary" href="{% url 'home_productos' %}">Regresar</a>
+</div>
 {% endblock %}
