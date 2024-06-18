@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import PasswordChangeForm
@@ -48,8 +49,14 @@ class SignUpForm(UserCreationForm):
             'is_employee': forms.CheckboxInput(attrs={'class': 'form-control'}),
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'cedula': forms.TextInput(attrs={'class': 'form-control'}),
+            'cedula': forms.NumberInput(attrs={'max': 99999999, 'min': 0}),
         }
+
+        def clean_cedula(self):
+            cedula = self.cleaned_data.get('cedula')
+            if not cedula.isdigit() or len(cedula) > 8:
+                raise ValidationError('La cédula debe ser numérica y tener un máximo de 8 dígitos.')
+            return cedula
 
         def clean(self):
             cleaned_data = super().clean()

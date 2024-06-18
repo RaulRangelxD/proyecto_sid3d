@@ -102,6 +102,13 @@
             </div>
         </form>
     </div>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var cedulaField = document.querySelector('input[name="cedula"]');
+            cedulaField.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        });
+        </script>
 </body>
 </html>
