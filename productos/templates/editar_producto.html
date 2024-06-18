@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}
+{% extends "base2.html" %} {% block title %}
 <title>Editar</title>
 {% endblock %} {% block content %}
 <body>
@@ -9,37 +9,16 @@
         <h2 class="font-bold">Editando Producto: {{ producto.nombre }}</h2>
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          <div class="text-left font-bold">
-            {{ form.nombre.label_tag }} {{ form.nombre }}
-          </div>
-          <div class="text-left font-bold">
-            {{ form.categoria.label_tag }} {{ form.categoria }}
-          </div>
-          <div class="text-left font-bold">
-            {{ form.precio.label_tag }} {{ form.precio }}
-          </div>
-          <div class="text-left font-bold">
-            {{ form.precio_2.label_tag }} {{ form.precio_2 }}
-          </div>
-          <div class="text-left font-bold">
-            {{ form.precio_3.label_tag }} {{ form.precio_3 }}
-          </div>
-          <div class="text-left font-bold">
-            {{ form.descripcion.label_tag }} {{ form.descripcion }}
-          </div>
-          <div class="text-left font-bold">
-            {{ form.existencias.label_tag }} {{ form.existencias }}
-          </div>
-          <div class="text-left font-bold">
-            {{ form.imagen.label_tag }} {{ form.imagen }}
-          </div>
+          <div class="text-left font-bold">{{ form.nombre.label_tag }} {{ form.nombre }}</div>
+          <div class="text-left font-bold">{{ form.categoria.label_tag }} {{ form.categoria }}</div>
+          <div class="text-left font-bold">{{ form.precio.label_tag }} {{ form.precio }}</div>
+          <div class="text-left font-bold">{{ form.precio_2.label_tag }} {{ form.precio_2 }}</div>
+          <div class="text-left font-bold">{{ form.precio_3.label_tag }} {{ form.precio_3 }}</div>
+          <div class="text-left font-bold">{{ form.descripcion.label_tag }} {{ form.descripcion }}</div>
+          <div class="text-left font-bold">{{ form.existencias.label_tag }} {{ form.existencias }}</div>
+          <div class="text-left font-bold">{{ form.imagen.label_tag }} {{ form.imagen }}</div>
 
-          <button
-            type="submit"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Guardar Cambios
-          </button>
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Guardar Cambios</button>
         </form>
       </div>
     </div>

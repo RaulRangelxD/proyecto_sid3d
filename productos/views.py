@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render,redirect
 from .models import Producto, Categoria
 from .forms import ProductoForm, CategoriaForm
-from PIL import Image
+from PIL import Image, ImageOps
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
@@ -39,8 +39,9 @@ def crear(request):
         if form.is_valid():
             producto = form.save(commit=False)
             imagen = request.FILES['imagen']
-            
+
             img = Image.open(imagen)
+            img = ImageOps.exif_transpose(img)
             img = img.resize((500, 500))
             img_io = BytesIO()
             img.save(img_io, format='WEBP')
@@ -82,7 +83,21 @@ def editar(request, nombre):
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES, instance=producto)
         if form.is_valid():
-            form.save()
+            producto = form.save(commit=False)
+            try:
+                imagen = request.FILES['imagen']
+                
+                img = Image.open(imagen)
+                img = ImageOps.exif_transpose(img)
+                img = img.resize((500, 500))
+                img_io = BytesIO()
+                img.save(img_io, format='WEBP')
+                img_file = InMemoryUploadedFile(img_io, 'ImageField', f"{producto.nombre}.webp", 'image/webp', sys.getsizeof(img_io), None)
+
+                producto.imagen = img_file
+                form.save()
+            except:
+                form.save()
             return redirect('home_productos')
     else:
         form = ProductoForm(instance=producto)

@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block title %}
+    <title>Por defecto</title>
+    {% endblock %}
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dist/styles.css' %}" />
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Karla:400,700&display=swap");
+      .font-family-karla {
+        font-family: karla;
+      }
+      .bg-custom {
+        background: linear-gradient(360deg, #313a88 -3%, #26243c 76%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="w-full min-h-screen bg-custom bg-fixed">
+      {% block header %}
+      <header class="sticky top-0">
+        <div class="grid grid-cols-3 bg-gray-700">
+          <div class="m-2">
+            <a href="{% url 'home_productos' %}">
+              <img src="{% static 'images/logo.png' %}" alt="Logo" class="rounded-full h-12" />
+            </a>
+          </div>
+          <div class="flex justify-center items-center">
+            <div class="">
+              <button
+                type="button"
+                id="dropdownButton"
+                class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-bold text-black hover:bg-gray-50 focus:outline-none"
+              >
+                Categorías
+                <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.793l3.71-3.563a.75.75 0 111.04 1.084l-4 3.75a.75.75 0 01-1.04 0l-4-3.75a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+
+            <div id="dropdownMenu" class="hidden origin-top-center absolute top-12 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div class="py-1" role="none">
+                {% for cat in categoria %}
+                <a href="{% url 'busqueda' cat.nombre %}" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem">{{ cat.nombre }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-end items-center space-x-4 mr-4">
+            {% if usuario is None %}
+            <a type="button" class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" href="{% url 'login_view' %}">Iniciar Sesion</a>
+            {% endif %} {% if usuario is not None %}
+            <a type="button" class="bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded inline-flex items-center" href="{% url 'profile' %}">
+              <img src="{% static 'images/'|add:usuario.profile|add:'.jpg' %}" alt="Icono" class="w-5 h-5 mr-2 rounded-full" />
+              {{ usuario.username }}
+            </a>
+            <a type="button" class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" href="{% url 'logout' %}">Salir</a>
+            {% endif %}
+          </div>
+        </div>
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            const dropdownButton = document.getElementById("dropdownButton");
+            const dropdownMenu = document.getElementById("dropdownMenu");
+
+            dropdownButton.addEventListener("click", function () {
+              dropdownMenu.classList.toggle("hidden");
+            });
+
+            // Close the dropdown if the user clicks outside of it
+            window.addEventListener("click", function (e) {
+              if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.add("hidden");
+              }
+            });
+          });
+        </script>
+      </header>
+      {% endblock %}
+      <main>
+        <div class="grid grid-cols-10">
+          <div class="col-span-10">
+            <div class="m-4">
+              {% block content %}
+              <!-- {% block sidebar %}texto de navegacion default???{% endblock %} -->
+              <h1>ERROR TEMPLATE VACIO!!!</h1>
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

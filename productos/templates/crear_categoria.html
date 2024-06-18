@@ -1,14 +1,19 @@
-{% extends "base.html" %} {% block title %}
+{% extends "base2.html" %} {% block title %}
 <title>Crear Categoria</title>
 {% endblock %} {% block content %}
-<div class="container d-flex justify-content-center align-items-center">
-  <div class="col-6">
-    <div class="col-12">
-      <h2>Crear Categoria</h2>
+<div class="container mx-auto flex items-center justify-center mt-5">
+  <div class="bg-white p-8 rounded shadow-lg text-center">
+    <div class="">
+      <h2 class="p-3 font-bold">Crear Categoria</h2>
       <form method="post" enctype="multipart/form-data">
-        {% csrf_token %} {{ form.nombre.label_tag }} {{ form.nombre }}
-        <br />
-        <button type="submit" class="btn btn-success mt-3">Guardar</button>
+        <div class="pb-4">
+          <div>
+            {% csrf_token %}
+            <p class="text-left font-bold">{{ form.nombre.label_tag }}</p>
+            {{ form.nombre }}
+          </div>
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Guardar</button>
       </form>
     </div>
   </div>
