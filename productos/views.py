@@ -6,7 +6,7 @@ from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
 
-def index(request):
+def indentificar_usuario(request):
     if request.user.is_authenticated:
         if  request.user.is_admin == True:
             print('Admin')
@@ -14,16 +14,26 @@ def index(request):
             print('Customer')
         if  request.user.is_employee == True:
             print('Employee')
-    form = Producto.objects.all()
-    categoria = Categoria.objects.all()
-    return render(request, 'productos.html', {'form': form, 'categoria': categoria})
+        usuario = request.user
+        usuario.profile = str(usuario.profile)
+    else:
+        usuario = None
+    return usuario
 
-def ver(request):
+def index(request):
+    usuario = indentificar_usuario(request)
     form = Producto.objects.all()
     categoria = Categoria.objects.all()
-    return render(request, 'ver_producto.html', {'form': form, 'categoria': categoria})
+    return render(request, 'productos.html', {'form': form, 'categoria': categoria, 'usuario': usuario})
+
+def ver(request, nombre):
+    usuario = indentificar_usuario(request)
+    producto = get_object_or_404(Producto, nombre=nombre)
+    categoria = Categoria.objects.all()
+    return render(request, 'ver_producto.html', {'producto': producto, 'categoria': categoria, 'usuario': usuario})
 
 def crear(request):
+    usuario = indentificar_usuario(request)
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -42,9 +52,10 @@ def crear(request):
     else:
         form = ProductoForm()
         categoria = Categoria.objects.all()
-    return render(request, 'cargar_producto.html', {'form': form, 'categoria': categoria})
+    return render(request, 'cargar_producto.html', {'form': form, 'categoria': categoria, 'usuario': usuario})
 
 def crear_categoria(request):
+    usuario = indentificar_usuario(request)
     if request.method == 'POST':
         form = CategoriaForm(request.POST, request.FILES)
         if form.is_valid():
@@ -53,18 +64,20 @@ def crear_categoria(request):
     else:
         form = CategoriaForm()
         categoria = Categoria.objects.all()
-    return render(request, 'crear_categoria.html', {'form': form, 'categoria': categoria})
+    return render(request, 'crear_categoria.html', {'form': form, 'categoria': categoria, 'usuario': usuario})
 
 def borrar(request, nombre):
+    usuario = indentificar_usuario(request)
     producto = get_object_or_404(Producto, nombre=nombre)
     if request.method == 'POST':
         producto.imagen.delete()
         producto.delete()
         return redirect('home_productos')
     categoria = Categoria.objects.all()
-    return render(request, 'confirmar_eliminacion.html', {'producto': producto, 'categoria': categoria})
+    return render(request, 'confirmar_eliminacion.html', {'producto': producto, 'categoria': categoria, 'usuario': usuario})
 
 def editar(request, nombre):
+    usuario = indentificar_usuario(request)
     producto = get_object_or_404(Producto, nombre=nombre)
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES, instance=producto)
@@ -74,13 +87,14 @@ def editar(request, nombre):
     else:
         form = ProductoForm(instance=producto)
         categoria = Categoria.objects.all()
-    return render(request, 'editar_producto.html', {'form': form, 'producto': producto, 'categoria': categoria})
+    return render(request, 'editar_producto.html', {'form': form, 'producto': producto, 'categoria': categoria, 'usuario': usuario})
 
 def busqueda(request, categoria):
+    usuario = indentificar_usuario(request)
     productos = Producto.objects.all()
     filtro=[]
     for producto in productos:
         if producto.categoria.nombre.lower() == categoria.lower():
             filtro.append(producto)
     categoria = Categoria.objects.all()
-    return render(request, 'busqueda.html', {'productos': filtro, 'categoria': categoria})
+    return render(request, 'busqueda.html', {'productos': filtro, 'categoria': categoria, 'usuario': usuario})
