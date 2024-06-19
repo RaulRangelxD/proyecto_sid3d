@@ -4,6 +4,7 @@ from .forms import ProductoForm, CategoriaForm
 from PIL import Image, ImageOps
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from random import sample
 import sys
 
 def indentificar_usuario(request):
@@ -19,6 +20,38 @@ def indentificar_usuario(request):
     else:
         usuario = None
     return usuario
+
+def index(request):
+    usuario = indentificar_usuario(request)
+    form = Producto.objects.all()
+    productos = Producto.objects.all()
+    categorias=Categoria.objects.all()
+    nombre_categorias = []
+    no_categorias = False
+    print(len(categorias))
+    if len(categorias) > 2:
+        print(False)
+        no_categorias = False
+        for cat in categorias:
+            nombre_categorias.append(cat.nombre.lower())
+        nombre_categorias = sample(nombre_categorias, 3)
+        filtro1=[]
+        for producto in productos:
+            if producto.categoria.nombre.lower() == nombre_categorias[0]:
+                filtro1.append(producto)
+        filtro2=[]
+        for producto in productos:
+            if producto.categoria.nombre.lower() == nombre_categorias[1]:
+                filtro2.append(producto)
+        filtro3=[]
+        for producto in productos:
+            if producto.categoria.nombre.lower() == nombre_categorias[2]:
+                filtro3.append(producto)
+    else:
+        no_categorias = True
+        print(True)
+    categoria = Categoria.objects.all()
+    return render(request, 'index.html', {'form': form, 'categoria': categoria, 'no_categorias': no_categorias,'filtro1': filtro1, 'filtro2': filtro2, 'filtro3': filtro3, 'usuario': usuario})
 
 def productos(request):
     usuario = indentificar_usuario(request)
