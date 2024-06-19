@@ -20,7 +20,7 @@ def indentificar_usuario(request):
         usuario = None
     return usuario
 
-def index(request):
+def productos(request):
     usuario = indentificar_usuario(request)
     form = Producto.objects.all()
     categoria = Categoria.objects.all()
@@ -49,7 +49,7 @@ def crear(request):
 
             producto.imagen = img_file
             producto.save()
-            return redirect('home_productos')
+            return redirect('productos')
     else:
         form = ProductoForm()
         categoria = Categoria.objects.all()
@@ -73,7 +73,7 @@ def borrar(request, nombre):
     if request.method == 'POST':
         producto.imagen.delete()
         producto.delete()
-        return redirect('home_productos')
+        return redirect('productos')
     categoria = Categoria.objects.all()
     return render(request, 'confirmar_eliminacion.html', {'producto': producto, 'categoria': categoria, 'usuario': usuario})
 
@@ -98,7 +98,7 @@ def editar(request, nombre):
                 form.save()
             except:
                 form.save()
-            return redirect('home_productos')
+            return redirect('productos')
     else:
         form = ProductoForm(instance=producto)
         categoria = Categoria.objects.all()

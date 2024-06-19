@@ -25,7 +25,11 @@
               </div>
             </th>
             <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ producto.nombre }}</th>
+            {% if usuario is None %}
+            <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">Inicia sesion para ver los precios</th>
+            {% endif %} {% if usuario is not None %}
             <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ producto.precio }}</th>
+            {% endif %}
             <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 m-auto">
               <div class="flex justify-center">
                 {% if producto.existencias > 0 %}
@@ -55,7 +59,7 @@
                 >
                   Ver
                 </button>
-
+                {% if usuario.is_admin is True or usuario.is_employee is True %}
                 <button
                   class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-green-300 hover:bg-green-400"
                   onclick="location.href='editar/{{ producto.nombre }}'"
@@ -68,7 +72,7 @@
                 >
                   Borrar
                 </button>
-
+                {% endif %}
                 <!-- Modal Ver -->
                 <div x-show="openView" class="fixed inset-0 z-10 overflow-hidden flex items-center justify-center" x-cloak>
                   <div
@@ -100,7 +104,11 @@
                     </div>
                     <!-- Modal Body -->
                     <div class="p-4">
+                      {% if usuario is None %}
+                      <p>Inicia sesion para ver los precios</p>
+                      {% endif %} {% if usuario is not None %}
                       <p><strong>Precio:</strong> {{ producto.precio }}</p>
+                      {% endif %}
                       <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
                       <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="w-full h-auto object-contain rounded mt-4" />
                     </div>

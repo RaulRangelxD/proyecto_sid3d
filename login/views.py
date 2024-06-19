@@ -36,16 +36,16 @@ def login_view(request):
             user = authenticate(username=Username, password=Password)
             if user is not None and user.is_admin:
                 login(request,user)
-                return redirect('home_productos')
+                return redirect('productos')
             elif user is not None and user.is_customer:
                 login(request,user)
-                return redirect('home_productos')
+                return redirect('productos')
             elif user is not None and user.is_employee:
                 login(request,user)
-                return redirect('home_productos')
+                return redirect('productos')
             elif user is not None:
                 login(request,user)
-                return redirect('home_productos')
+                return redirect('productos')
             else:
                 msg='credenciales invalidas'
         else:
@@ -54,7 +54,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('home_productos')
+    return redirect('productos')
 
 def edit_user_view(request):
     usuario = request.user
@@ -83,7 +83,7 @@ def edit_password(request):
             user = form.save()
             update_session_auth_hash(request, user)  # Importante para mantener la sesión del usuario
             messages.success(request, '¡Tu contraseña ha sido actualizada exitosamente!')
-            return redirect('home_productos')
+            return redirect('productos')
         else:
             messages.error(request, 'Por favor corrige los errores a continuación.')
     else:
