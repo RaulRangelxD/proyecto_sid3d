@@ -23,3 +23,16 @@ class CategoriaForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'input input-bordered input-primary w-full max-w-xs'}),
         }
+
+class VentaForm(forms.ModelForm):
+    class Meta:
+        model = models.Venta
+        fields = ['telefono_venta']
+        widgets = {
+            'telefono_venta': forms.TextInput(attrs={'class': 'w-full px-5 py-4 text-gray-700 bg-gray-200 rounded mb-3'}),
+        }
+
+class VentaProductoForm(forms.ModelForm):
+    class Meta:
+        model = models.Venta_Producto
+        fields = ['id_venta', 'id_producto', 'cantidad']

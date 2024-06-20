@@ -52,10 +52,6 @@ def login_view(request):
             msg = 'Formulario inválido'
     return render(request, 'login.html', {'form':form, 'msg':msg})
 
-def logout_view(request):
-    logout(request)
-    return redirect('productos')
-
 def edit_user_view(request):
     usuario = request.user
     avatar = str(f'images/{usuario.profile}.jpg')

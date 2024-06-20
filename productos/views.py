@@ -1,11 +1,16 @@
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import Producto, Categoria
-from .forms import ProductoForm, CategoriaForm
+from .models import Producto, Categoria, Venta_Producto, Venta
+from .forms import ProductoForm, CategoriaForm, VentaForm, VentaProductoForm
 from PIL import Image, ImageOps
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from random import sample
+from django.http import JsonResponse
+from django.db.models import Sum, F
+from django.contrib.auth import logout
 import sys
+
+venta_actual = None
 
 def indentificar_usuario(request):
     if request.user.is_authenticated:
@@ -57,7 +62,21 @@ def productos(request):
     usuario = indentificar_usuario(request)
     form = Producto.objects.all()
     categoria = Categoria.objects.all()
-    return render(request, 'productos.html', {'form': form, 'categoria': categoria, 'usuario': usuario})
+    if request.method == 'POST':
+        venta_producto_form = VentaProductoForm()
+        producto_id = request.POST.get('producto_id')
+        cantidad = request.POST.get('cantidad', 1)
+        global venta_actual
+        print(venta_actual)
+        if venta_actual is None:
+            venta = Venta.objects.create(id_cliente=request.user)
+            venta_actual = venta
+
+        Venta_Producto.objects.create(id_venta=venta_actual, id_producto_id=producto_id, cantidad=cantidad)
+        return JsonResponse({'status': 'success', 'message': 'Producto agregado correctamente'}, status=200)
+    else:
+        venta_producto_form = VentaProductoForm()
+    return render(request, 'productos.html', {'form': form, 'categoria': categoria, 'usuario': usuario,'venta_producto_form': venta_producto_form})
 
 def ver(request, nombre):
     usuario = indentificar_usuario(request)
@@ -146,3 +165,53 @@ def busqueda(request, categoria):
             filtro.append(producto)
     categoria = Categoria.objects.all()
     return render(request, 'busqueda.html', {'productos': filtro, 'categoria': categoria, 'usuario': usuario})
+
+def carrito(request):
+    usuario = indentificar_usuario(request)
+    global venta_actual
+    usuario = indentificar_usuario(request)
+    
+    if request.method == 'POST':
+        if 'cancelar_compra' in request.POST:
+            venta_actual = None
+            return redirect('carrito')
+        else:
+            form = VentaForm(request.POST, request.FILES)
+            if form.is_valid():
+                total = Venta_Producto.objects.filter(id_venta=venta_actual).aggregate(total=Sum(F('cantidad') * F('id_producto__precio')))['total'] or 0
+                venta_actual.total_venta = total
+                venta_actual.cedula_venta = request.user.cedula
+                venta_actual.sector_venta = 'Establecimiento unico'
+                venta_actual.telefono_venta = '1234' #cambiar cuando se agregue al usuario: request.user.celular
+                venta_actual.save()
+
+                form.instance = venta_actual
+                form.save()
+                venta_actual = None
+                return redirect('productos')
+    else:
+        form = VentaForm()
+    
+    categoria = Categoria.objects.all()
+    venta_producto = Venta_Producto.objects.all()
+    articulos_carrito = []
+
+     # Calcular el total de la venta antes de guardar
+    
+    
+    if venta_actual is not None:
+        total = Venta_Producto.objects.filter(id_venta=venta_actual).aggregate(total=Sum(F('cantidad') * F('id_producto__precio')))['total'] or 0
+        
+        # Actualizar el total de la venta
+        venta_actual.total_venta = total
+        venta_actual.save()
+        for producto in venta_producto:
+            if producto.id_venta.id == venta_actual.id:
+                articulos_carrito.append(producto.id_producto)
+    return render(request, 'carrito.html', {'form': form, 'categoria': categoria, 'usuario': usuario, 'venta_actual': venta_actual, 'articulos_carrito': articulos_carrito})
+
+def logout_view(request):
+    global venta_actual
+    venta_actual = None
+    logout(request)
+    return redirect('productos')

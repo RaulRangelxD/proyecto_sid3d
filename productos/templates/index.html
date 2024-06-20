@@ -6,44 +6,23 @@
     {% for producto in filtro1 %}
     <div class="shadow-2xl rounded-lg">
       <figure>
-        <img
-          src="{{ producto.imagen.url }}"
-          alt="{{ producto.nombre }}"
-          class="rounded-t-lg w-full"
-          title="EP 60"
-          loading="lazy"
-          width="401"
-          height="237"
-        />
+        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="rounded-t-lg w-full" title="EP 60" loading="lazy" width="401" height="237" />
       </figure>
       <div class="bg-white p-6 rounded-b-lg">
-        <h2 class="card-title text-xl font-semibold text-bt text-center">
-          {{ producto.nombre }}
-        </h2>
+        <h2 class="card-title text-xl font-semibold text-bt text-center">{{ producto.nombre }}</h2>
         <div class="card-actions justify-end">
-          <a
-            href=""
-            class="bg-g text-white px-4 py-1 rounded-md w-full block text-center"
-            >View More</a
-          >
+          <a href="" class="bg-g text-white px-4 py-1 rounded-md w-full block text-center">View More</a>
         </div>
         <div class="flex flex-col mt-4">
           <label class="text-sm font-semibold text-gray-600">Precio:</label>
           <span class="text-sm text-gray-900">{{ producto.precio }}</span>
         </div>
         <div class="flex flex-col mt-2">
-          <label class="text-sm font-semibold text-gray-600"
-            >Descripción:</label
-          >
+          <label class="text-sm font-semibold text-gray-600">Descripción:</label>
           <span class="text-sm text-gray-900">{{ producto.descripcion }}</span>
         </div>
         {% if producto.existencias > 0 %}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="#00FF0F"
-          class="w-10 h-10 mt-2"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#00FF0F" class="w-10 h-10 mt-2">
           <path
             fill-rule="evenodd"
             d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z"
@@ -51,12 +30,7 @@
           />
         </svg>
         {% else %}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="#FF0000"
-          class="w-10 h-10 mt-2"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000" class="w-10 h-10 mt-2">
           <path
             fill-rule="evenodd"
             d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
@@ -69,11 +43,7 @@
         <div class="flex px-4 py-2">
           {% for producto in todos_productos %}
           <div class="flex-shrink-0 w-64 bg-white rounded-lg shadow-md mx-2">
-            <img
-              src="{{ producto.imagen.url }}"
-              alt="{{ producto.nombre }}"
-              class="w-full h-48 object-cover rounded-t-lg"
-            />
+            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="w-full h-48 object-cover rounded-t-lg" />
             <div class="p-4">
               <h3 class="text-lg font-semibold">{{ producto.nombre }}</h3>
               <p class="text-gray-600">{{ producto.descripcion }}</p>
@@ -88,19 +58,13 @@
   </div>
 </section>
 <section>
-  <div
-    class="from-blue-50 to-violet-50 flex items-center justify-center lg:h-screen"
-  >
+  <div class="from-blue-50 to-violet-50 flex items-center justify-center lg:h-screen">
     {% for producto in form %}
     <div class="container grid grid-cols-1 gap-4 w-80 h-80 p-4">
       <div class="flex flex-col gap-4">
         <!-- Replace this with your grid items -->
         <div class="bg-white rounded-lg border p-4">
-          <img
-            src="{{ producto.imagen.url }}"
-            alt="{{ producto.nombre }}"
-            class="w-full h-48 rounded-md object-cover"
-          />
+          <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="w-48 h-48 rounded-md object-cover" />
           <div class="px-1 py-4">
             <div class="font-bold text-xl mb-2">{{ producto.nombre }}</div>
             <p class="text-gray-700 text-base">{{ producto.precio }}</p>
@@ -117,8 +81,5 @@
 <h1>No hay suficientes categorías para mostrar, el mínimo son 3</h1>
 {% endif %}
 
-<script
-  src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js"
-  defer
-></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 {% endblock %}
