@@ -24,6 +24,8 @@ class Venta(models.Model):
     sector_venta = models.CharField(max_length=255)
     telefono_venta = models.CharField(max_length=255)
     fecha_venta = models.DateField(auto_now_add=True)
+    en_proceso = models.BooleanField(default=False)
+    confirmada = models.BooleanField(default=False)
 
 class Compra(models.Model):
     id = models.AutoField(primary_key=True)

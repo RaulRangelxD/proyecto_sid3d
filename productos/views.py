@@ -167,48 +167,61 @@ def busqueda(request, categoria):
     return render(request, 'busqueda.html', {'productos': filtro, 'categoria': categoria, 'usuario': usuario})
 
 def carrito(request):
-    usuario = indentificar_usuario(request)
     global venta_actual
     usuario = indentificar_usuario(request)
     
     if request.method == 'POST':
         if 'cancelar_compra' in request.POST:
             venta_actual = None
+            print('None1')
             return redirect('carrito')
-        else:
+        elif 'incrementar' in request.POST:
+            producto_id = request.POST.get('incrementar')
+            print(producto_id)
+            producto = Venta_Producto.objects.get(id_producto_id=producto_id, id_venta=venta_actual)
+            if producto.cantidad < producto.id_producto.existencias:
+                producto.cantidad += 1
+            producto.save()
+        elif 'decrementar' in request.POST:
+            producto_id = request.POST.get('decrementar')
+            print(producto_id)
+            producto = Venta_Producto.objects.get(id_producto_id=producto_id, id_venta=venta_actual)
+            if producto.cantidad > 1:
+                producto.cantidad -= 1
+                producto.save()
+        elif 'realizar_compra' in request.POST:
             form = VentaForm(request.POST, request.FILES)
             if form.is_valid():
                 total = Venta_Producto.objects.filter(id_venta=venta_actual).aggregate(total=Sum(F('cantidad') * F('id_producto__precio')))['total'] or 0
                 venta_actual.total_venta = total
                 venta_actual.cedula_venta = request.user.cedula
-                venta_actual.sector_venta = 'Establecimiento unico'
-                venta_actual.telefono_venta = '1234' #cambiar cuando se agregue al usuario: request.user.celular
+                venta_actual.sector_venta = 'Establecimiento único'
+                venta_actual.telefono_venta = '1234'  # Cambiar cuando se agregue al usuario: request.user.celular
+                venta_actual.en_proceso = True
                 venta_actual.save()
 
                 form.instance = venta_actual
                 form.save()
                 venta_actual = None
+                print('None2')
                 return redirect('productos')
-    else:
-        form = VentaForm()
+    form = VentaForm()
     
     categoria = Categoria.objects.all()
     venta_producto = Venta_Producto.objects.all()
     articulos_carrito = []
 
-     # Calcular el total de la venta antes de guardar
-    
-    
     if venta_actual is not None:
         total = Venta_Producto.objects.filter(id_venta=venta_actual).aggregate(total=Sum(F('cantidad') * F('id_producto__precio')))['total'] or 0
         
-        # Actualizar el total de la venta
         venta_actual.total_venta = total
         venta_actual.save()
         for producto in venta_producto:
             if producto.id_venta.id == venta_actual.id:
-                articulos_carrito.append(producto.id_producto)
+                articulos_carrito.append(producto)
+    
     return render(request, 'carrito.html', {'form': form, 'categoria': categoria, 'usuario': usuario, 'venta_actual': venta_actual, 'articulos_carrito': articulos_carrito})
+
 
 def logout_view(request):
     global venta_actual

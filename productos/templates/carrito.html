@@ -8,46 +8,33 @@
       <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center rounded-tl-lg">Imagen</th>
       <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Nombre</th>
       <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Precio</th>
-      <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Disponible</th>
+      <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Cantidad</th>
       <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center rounded-tr-lg">Opciones</th>
     </tr>
   </thead>
   <tbody class="table-row-group">
     {% for producto in articulos_carrito %}
     <tr class="table-row bg-white hover:bg-gray-200 rounded-lg">
-      <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 m-auto rounded-l-lg">
+      <td class="table-cell text-sm font-medium text-gray-900 px-6 py-4 m-auto rounded-l-lg">
         <div class="flex justify-center">
-          <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="w-20 h-20 rounded" />
+          <img src="{{ producto.id_producto.imagen.url }}" alt="{{ producto.nombre }}" class="w-20 h-20 rounded" />
         </div>
-      </th>
-      <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ producto.nombre }}</th>
+      </td>
+      <td class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ producto.id_producto.nombre }}</td>
       {% if usuario is None %}
-      <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">Inicia sesion para ver los precios</th>
+      <td class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">Inicia sesión para ver los precios</td>
       {% endif %} {% if usuario is not None %}
-      <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ producto.precio }}</th>
+      <td class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ producto.id_producto.precio }}</td>
       {% endif %}
-      <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 m-auto">
-        <div class="flex justify-center">
-          {% if producto.existencias > 0 %}
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#00FF0F" class="w-10 h-10">
-            <path
-              fill-rule="evenodd"
-              d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z"
-              clip-rule="evenodd"
-            />
-          </svg>
-          {% else %}
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000" class="w-10 h-10">
-            <path
-              fill-rule="evenodd"
-              d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
-              clip-rule="evenodd"
-            />
-          </svg>
-          {% endif %}
-        </div>
-      </th>
-      <th class="table-cell place-content-center text-center rounded-r-lg">
+      <td class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">
+        <form method="post" class="flex items-center justify-center">
+          {% csrf_token %}
+          <button type="submit" name="decrementar" value="{{ producto.id_producto.id }}" class="text-red-500 font-bold text-lg px-2">-</button>
+          <span class="mx-2">{{ producto.cantidad }}</span>
+          <button type="submit" name="incrementar" value="{{ producto.id_producto.id }}" class="text-green-500 font-bold text-lg px-2">+</button>
+        </form>
+      </td>
+      <td class="table-cell place-content-center text-center rounded-r-lg">
         <div x-data="{ openView: false, openDelete: false }" class="inline">
           <button
             @click="openView = true"
@@ -56,7 +43,7 @@
             Ver
           </button>
         </div>
-      </th>
+      </td>
     </tr>
     {% endfor %}
   </tbody>
@@ -78,6 +65,7 @@
   {% csrf_token %} {{ form.as_p }}
   <button
     type="submit"
+    name="realizar_compra"
     class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-green-400 hover:bg-green-500"
   >
     Confirmar compra

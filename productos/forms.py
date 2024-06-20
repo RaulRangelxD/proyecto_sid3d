@@ -27,9 +27,8 @@ class CategoriaForm(forms.ModelForm):
 class VentaForm(forms.ModelForm):
     class Meta:
         model = models.Venta
-        fields = ['telefono_venta']
+        fields = []
         widgets = {
-            'telefono_venta': forms.TextInput(attrs={'class': 'w-full px-5 py-4 text-gray-700 bg-gray-200 rounded mb-3'}),
         }
 
 class VentaProductoForm(forms.ModelForm):
