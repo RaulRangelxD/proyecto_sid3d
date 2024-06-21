@@ -28,8 +28,8 @@ def indentificar_usuario(request):
 
 def index(request):
     usuario = indentificar_usuario(request)
-    form = Producto.objects.all()
-    productos = Producto.objects.all()
+    form = Producto.objects.filter(eliminado=False)
+    productos = Producto.objects.filter(eliminado=False)
     categorias=Categoria.objects.all()
     nombre_categorias = []
     no_categorias = False
@@ -60,7 +60,7 @@ def index(request):
 
 def productos(request):
     usuario = indentificar_usuario(request)
-    form = Producto.objects.all()
+    form = Producto.objects.filter(eliminado=False)
     categoria = Categoria.objects.all()
     if request.method == 'POST':
         venta_producto_form = VentaProductoForm()
@@ -123,9 +123,19 @@ def borrar(request, nombre):
     usuario = indentificar_usuario(request)
     producto = get_object_or_404(Producto, nombre=nombre)
     if request.method == 'POST':
-        producto.imagen.delete()
-        producto.delete()
+        producto.eliminado = True
+        producto.save()
         return redirect('productos')
+    categoria = Categoria.objects.all()
+    return render(request, 'confirmar_eliminacion.html', {'producto': producto, 'categoria': categoria, 'usuario': usuario})
+
+def restaurar(request, nombre):
+    usuario = indentificar_usuario(request)
+    producto = get_object_or_404(Producto, nombre=nombre)
+    if request.method == 'POST':
+        producto.eliminado = False
+        producto.save()
+        return redirect('productos_eliminados')
     categoria = Categoria.objects.all()
     return render(request, 'confirmar_eliminacion.html', {'producto': producto, 'categoria': categoria, 'usuario': usuario})
 
@@ -158,13 +168,33 @@ def editar(request, nombre):
 
 def busqueda(request, categoria):
     usuario = indentificar_usuario(request)
-    productos = Producto.objects.all()
+    productos = Producto.objects.filter(eliminado=False)
+    if request.method == 'POST':
+        venta_producto_form = VentaProductoForm()
+        producto_id = request.POST.get('producto_id')
+        cantidad = request.POST.get('cantidad', 1)
+        global venta_actual
+        print(venta_actual)
+        if venta_actual is None:
+            venta = Venta.objects.create(id_cliente=request.user)
+            venta_actual = venta
+
+        Venta_Producto.objects.create(id_venta=venta_actual, id_producto_id=producto_id, cantidad=cantidad)
+        return JsonResponse({'status': 'success', 'message': 'Producto agregado correctamente'}, status=200)
+    else:
+        venta_producto_form = VentaProductoForm()
     filtro=[]
     for producto in productos:
         if producto.categoria.nombre.lower() == categoria.lower():
             filtro.append(producto)
     categoria = Categoria.objects.all()
-    return render(request, 'busqueda.html', {'productos': filtro, 'categoria': categoria, 'usuario': usuario})
+    return render(request, 'busqueda.html', {'productos': filtro, 'categoria': categoria, 'usuario': usuario,'venta_producto_form': venta_producto_form})
+
+def productos_eliminados(request):
+    usuario = indentificar_usuario(request)
+    productos = Producto.objects.filter(eliminado=True)
+    categoria = Categoria.objects.all()
+    return render(request, 'productos_eliminados.html', {'productos': productos, 'categoria': categoria, 'usuario': usuario})
 
 def carrito(request):
     global venta_actual

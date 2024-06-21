@@ -9,6 +9,7 @@ class Producto(models.Model):
     descripcion = models.TextField()
     imagen = models.ImageField(upload_to='productos/')
     existencias = models.IntegerField()
+    eliminado = models.BooleanField(default=False)
     
 class Categoria(models.Model):
     id = models.AutoField(primary_key=True)
