@@ -56,6 +56,8 @@
           <div class="flex justify-end items-center space-x-4 mr-4">
             {% if usuario.is_customer is True %}
             <a type="button" class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" href="{% url 'carrito' %}">Carrito</a>
+            {% endif %} {% if usuario.is_admin is True or usuario.is_employee is True %}
+            <a type="button" class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" href="{% url 'confirmar_compra' %}">Confirmar compra</a>
             {% endif %} {% if usuario is None %}
             <a type="button" class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" href="{% url 'login_view' %}">Iniciar Sesion</a>
             {% endif %} {% if usuario is not None %}

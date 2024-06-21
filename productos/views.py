@@ -222,6 +222,38 @@ def carrito(request):
     
     return render(request, 'carrito.html', {'form': form, 'categoria': categoria, 'usuario': usuario, 'venta_actual': venta_actual, 'articulos_carrito': articulos_carrito})
 
+def confirmar_compra(request):
+    usuario = indentificar_usuario(request)
+    if request.method == 'POST':
+        if 'confirmar_pago' in request.POST:
+            venta_id = request.POST.get('confirmar_pago')
+            venta_actual = Venta.objects.get(id = venta_id)
+            form = VentaForm(request.POST, request.FILES)
+            if form.is_valid():
+                venta_actual.confirmada = True
+                venta_actual.save()
+
+                form.instance = venta_actual
+
+                productos = Venta_Producto.objects.filter(id_venta=venta_actual)
+                for producto in productos:
+                    print(producto.id_producto.existencias)
+                    print(producto.cantidad)
+                    producto.id_producto.existencias -= producto.cantidad
+                    print(producto.id_producto.existencias)
+                    producto.id_producto.save()
+
+                form.save()
+                return redirect('compras_confirmadas')
+    categoria = Categoria.objects.all()
+    ventas = Venta.objects.filter(en_proceso = True, confirmada = False)
+    return render(request, 'confirmar_compra.html', {'categoria': categoria, 'usuario': usuario, 'ventas': ventas})
+
+def compras_confirmadas(request):
+    usuario = indentificar_usuario(request)
+    categoria = Categoria.objects.all()
+    ventas = Venta.objects.filter(confirmada = True)
+    return render(request, 'compras_confirmadas.html', {'categoria': categoria, 'usuario': usuario, 'ventas': ventas})
 
 def logout_view(request):
     global venta_actual

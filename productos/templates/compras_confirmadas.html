@@ -1,0 +1,36 @@
+{% extends "base2.html" %} {% block title %}
+<title>Busqueda</title>
+{% endblock %} {% block content %}
+<div class="container grid grid-cols-1 gap-4 w-full">
+  <div class="flex flex-col items-center w-full">
+    <div class="w-full border border-gray-300 rounded-lg shadow flex flex-col bg-gray-100 border-b mb-4">
+      <!--Table ventas-->
+      <table class="table-auto w-full">
+        <thead class="table-header-group">
+          <tr class="table-row bg-gray-100 hover:bg-gray-200">
+            <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center rounded-tl-lg">Cedula</th>
+            <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Sector</th>
+            <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Telefono</th>
+            <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Nombre Cliente</th>
+            <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center rounded-tr-lg">Opciones</th>
+          </tr>
+        </thead>
+
+        <tbody class="table-row-group">
+          {% for venta in ventas %}
+          <tr class="table-row bg-white hover:bg-gray-200 rounded-lg">
+            <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ venta.cedula_venta }}</th>
+            <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ venta.sector_venta }}</th>
+            <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ venta.telefono_venta }}</th>
+            <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ venta.id_cliente.first_name }} {{ venta.id_cliente.last_name }}</th>
+            <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">Ya procesada</th>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <!--End Table ventas-->
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+{% endblock %}
