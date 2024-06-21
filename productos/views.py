@@ -219,6 +219,12 @@ def carrito(request):
             if producto.cantidad > 1:
                 producto.cantidad -= 1
                 producto.save()
+        elif 'borrar' in request.POST:
+            producto_id = request.POST.get('borrar')
+            print(producto_id)
+            producto = Venta_Producto.objects.get(id_producto_id=producto_id, id_venta=venta_actual)
+            producto.delete()
+            return redirect('carrito')
         elif 'realizar_compra' in request.POST:
             form = VentaForm(request.POST, request.FILES)
             if form.is_valid():
@@ -249,6 +255,8 @@ def carrito(request):
         for producto in venta_producto:
             if producto.id_venta.id == venta_actual.id:
                 articulos_carrito.append(producto)
+    if len(articulos_carrito) == 0:
+        venta_actual = None
     
     return render(request, 'carrito.html', {'form': form, 'categoria': categoria, 'usuario': usuario, 'venta_actual': venta_actual, 'articulos_carrito': articulos_carrito})
 

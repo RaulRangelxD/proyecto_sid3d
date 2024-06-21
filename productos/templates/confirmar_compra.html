@@ -8,10 +8,12 @@
       <table class="table-auto w-full">
         <thead class="table-header-group">
           <tr class="table-row bg-gray-100 hover:bg-gray-200">
+            <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center rounded-tl-lg">Id</th>
             <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center rounded-tl-lg">Cedula</th>
             <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Sector</th>
             <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Telefono</th>
             <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Nombre Cliente</th>
+            <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center rounded-tl-lg">Total</th>
             <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center rounded-tr-lg">Opciones</th>
           </tr>
         </thead>
@@ -19,12 +21,14 @@
         <tbody class="table-row-group">
           {% for venta in ventas %}
           <tr class="table-row bg-white hover:bg-gray-200 rounded-lg">
+            <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ venta.id }}</th>
             <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ venta.cedula_venta }}</th>
             <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ venta.sector_venta }}</th>
             <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ venta.telefono_venta }}</th>
             <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ venta.id_cliente.first_name }} {{ venta.id_cliente.last_name }}</th>
+            <th class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ venta.total_venta }}</th>
             <th class="table-cell place-content-center text-center rounded-r-lg">
-              <form method="post" class="flex flex-col mt-4">
+              <form method="post" class="">
                 {% csrf_token %}
                 <button
                   type="submit"

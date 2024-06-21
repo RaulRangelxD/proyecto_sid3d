@@ -1,76 +1,95 @@
-<!-- carrito.html -->
 {% extends "base2.html" %} {% block title %}
 <title>Carrito</title>
 {% endblock %} {% block content %} {% if venta_actual is not None %}
-<table class="table-auto w-full">
-  <thead class="table-header-group">
-    <tr class="table-row bg-gray-100 hover:bg-gray-200">
-      <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center rounded-tl-lg">Imagen</th>
-      <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Nombre</th>
-      <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Precio</th>
-      <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Cantidad</th>
-      <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center rounded-tr-lg">Opciones</th>
-    </tr>
-  </thead>
-  <tbody class="table-row-group">
-    {% for producto in articulos_carrito %}
-    <tr class="table-row bg-white hover:bg-gray-200 rounded-lg">
-      <td class="table-cell text-sm font-medium text-gray-900 px-6 py-4 m-auto rounded-l-lg">
-        <div class="flex justify-center">
-          <img src="{{ producto.id_producto.imagen.url }}" alt="{{ producto.nombre }}" class="w-20 h-20 rounded" />
+<div class="w-full">
+  <div class="border border-gray-300 rounded-lg shadow flex flex-col bg-gray-100 m-4">
+    <div class="grid grid-cols-10">
+      <div class="col-span-8 container grid grid-cols-1 gap-4 w-full">
+        <div class="flex flex-col items-center">
+          <!-- table carrito -->
+          <table class="table-auto w-full">
+            <thead class="table-header-group">
+              <tr class="table-row bg-gray-100 hover:bg-gray-300">
+                <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center rounded-tl-lg">Imagen</th>
+                <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Nombre</th>
+                <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Precio</th>
+                <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center">Cantidad</th>
+                <th class="table-cell text-sm font-medium text-gray-900 px-6 py-4 text-center rounded-tr-lg">Opciones</th>
+              </tr>
+            </thead>
+            <tbody class="table-row-group">
+              {% for producto in articulos_carrito %}
+              <tr class="table-row bg-white hover:bg-gray-300 rounded-lg">
+                <td class="table-cell text-sm font-medium text-gray-900 px-6 py-4 m-auto rounded-l-lg">
+                  <div class="flex justify-center">
+                    <img src="{{ producto.id_producto.imagen.url }}" alt="{{ producto.nombre }}" class="w-20 h-20 rounded" />
+                  </div>
+                </td>
+                <td class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ producto.id_producto.nombre }}</td>
+                {% if usuario is None %}
+                <td class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">Inicia sesión para ver los precios</td>
+                {% endif %} {% if usuario is not None %}
+                <td class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ producto.id_producto.precio }}</td>
+                {% endif %}
+                <td class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">
+                  <form method="post" class="flex items-center justify-center">
+                    {% csrf_token %}
+                    <button type="submit" name="decrementar" value="{{ producto.id_producto.id }}" class="text-red-500 font-bold text-lg px-2">-</button>
+                    <span class="mx-2">{{ producto.cantidad }}</span>
+                    <button type="submit" name="incrementar" value="{{ producto.id_producto.id }}" class="text-green-500 font-bold text-lg px-2">+</button>
+                  </form>
+                </td>
+                <td class="table-cell place-content-center text-center rounded-r-lg">
+                  <form method="post" class="flex items-center justify-center">
+                    {% csrf_token %}
+                    <button
+                      type="submit"
+                      name="borrar"
+                      value="{{ producto.id_producto.id }}"
+                      class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-red-400 hover:bg-red-500"
+                    >
+                      borrar
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <!--End Table carrito-->
         </div>
-      </td>
-      <td class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ producto.id_producto.nombre }}</td>
-      {% if usuario is None %}
-      <td class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">Inicia sesión para ver los precios</td>
-      {% endif %} {% if usuario is not None %}
-      <td class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">{{ producto.id_producto.precio }}</td>
-      {% endif %}
-      <td class="table-cell text-sm text-gray-900 font-light px-6 py-4 place-content-center text-center">
-        <form method="post" class="flex items-center justify-center">
-          {% csrf_token %}
-          <button type="submit" name="decrementar" value="{{ producto.id_producto.id }}" class="text-red-500 font-bold text-lg px-2">-</button>
-          <span class="mx-2">{{ producto.cantidad }}</span>
-          <button type="submit" name="incrementar" value="{{ producto.id_producto.id }}" class="text-green-500 font-bold text-lg px-2">+</button>
-        </form>
-      </td>
-      <td class="table-cell place-content-center text-center rounded-r-lg">
-        <div x-data="{ openView: false, openDelete: false }" class="inline">
-          <button
-            @click="openView = true"
-            class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-blue-400 hover:bg-blue-500"
-          >
-            Ver
-          </button>
+      </div>
+
+      <div class="col-start-9 col-span-2 bg-gray-200 hover:bg-gray-300">
+        <div class="flex flex-col items-center m-4 ml-0">
+          <label class="m-4">Total:{{ venta_actual.total_venta }}</label>
+
+          <form method="post" class="mt-4">
+            {% csrf_token %}
+            <button
+              type="submit"
+              name="cancelar_compra"
+              class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-red-400 hover:bg-red-500"
+            >
+              Cancelar compra
+            </button>
+          </form>
+
+          <form method="post" class="mt-4">
+            {% csrf_token %} {{ form.as_p }}
+            <button
+              type="submit"
+              name="realizar_compra"
+              class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-green-400 hover:bg-green-500"
+            >
+              Confirmar compra
+            </button>
+          </form>
         </div>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-<label>{{ venta_actual.total_venta }}</label>
-
-<form method="post" class="flex flex-col mt-4">
-  {% csrf_token %}
-  <button
-    type="submit"
-    name="cancelar_compra"
-    class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-red-400 hover:bg-red-500"
-  >
-    Cancelar compra
-  </button>
-</form>
-
-<form method="post" class="flex flex-col mt-4">
-  {% csrf_token %} {{ form.as_p }}
-  <button
-    type="submit"
-    name="realizar_compra"
-    class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-green-400 hover:bg-green-500"
-  >
-    Confirmar compra
-  </button>
-</form>
+      </div>
+    </div>
+  </div>
+</div>
 {% else %}
 <h1>Aún no tienes productos en tu carrito</h1>
 {% endif %}
