@@ -87,9 +87,11 @@ def productos(request):
         if venta_actual is None:
             venta = Venta.objects.create(id_cliente=request.user)
             venta_actual = venta
-
-        Venta_Producto.objects.create(id_venta=venta_actual, id_producto_id=producto_id, cantidad=cantidad)
-        return JsonResponse({'status': 'success', 'message': 'Producto agregado correctamente'}, status=200)
+        if Venta_Producto.objects.filter(id_venta=venta_actual, id_producto_id=producto_id):
+            return JsonResponse({'status': 'success', 'message': 'Producto ya en el carrito'}, status=200)
+        else:
+            Venta_Producto.objects.create(id_venta=venta_actual, id_producto_id=producto_id, cantidad=cantidad)
+            return JsonResponse({'status': 'success', 'message': 'Producto agregado correctamente'}, status=200)
     else:
         venta_producto_form = VentaProductoForm()
     return render(request, 'productos.html', {'form': form, 'categoria': categoria, 'usuario': usuario,'venta_producto_form': venta_producto_form})
@@ -194,9 +196,11 @@ def busqueda(request, categoria):
         if venta_actual is None:
             venta = Venta.objects.create(id_cliente=request.user)
             venta_actual = venta
-
-        Venta_Producto.objects.create(id_venta=venta_actual, id_producto_id=producto_id, cantidad=cantidad)
-        return JsonResponse({'status': 'success', 'message': 'Producto agregado correctamente'}, status=200)
+        if Venta_Producto.objects.filter(id_venta=venta_actual, id_producto_id=producto_id):
+            return JsonResponse({'status': 'success', 'message': 'Producto ya en el carrito'}, status=200)
+        else:
+            Venta_Producto.objects.create(id_venta=venta_actual, id_producto_id=producto_id, cantidad=cantidad)
+            return JsonResponse({'status': 'success', 'message': 'Producto agregado correctamente'}, status=200)
     else:
         venta_producto_form = VentaProductoForm()
     filtro=[]
