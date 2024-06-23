@@ -34,6 +34,22 @@ def index(request):
     nombre_categorias = []
     no_categorias = False
     print(len(categorias))
+    if request.method == 'POST':
+        venta_producto_form = VentaProductoForm()
+        producto_id = request.POST.get('producto_id')
+        cantidad = request.POST.get('cantidad', 1)
+        global venta_actual
+        print(venta_actual)
+        if venta_actual is None:
+            venta = Venta.objects.create(id_cliente=request.user)
+            venta_actual = venta
+        if Venta_Producto.objects.filter(id_venta=venta_actual, id_producto_id=producto_id):
+            return JsonResponse({'status': 'success', 'message': 'Producto ya en el carrito'}, status=200)
+        else:
+            Venta_Producto.objects.create(id_venta=venta_actual, id_producto_id=producto_id, cantidad=cantidad)
+            return JsonResponse({'status': 'success', 'message': 'Producto agregado correctamente'}, status=200)
+    else:
+        venta_producto_form = VentaProductoForm()
     if len(categorias) > 2:
         print(False)
         no_categorias = False
@@ -56,7 +72,7 @@ def index(request):
         no_categorias = True
         print(True)
     categoria = Categoria.objects.all()
-    return render(request, 'index.html', {'form': form, 'categoria': categoria, 'no_categorias': no_categorias,'filtro1': filtro1, 'filtro2': filtro2, 'filtro3': filtro3, 'usuario': usuario})
+    return render(request, 'index.html', {'form': form, 'categoria': categoria, 'no_categorias': no_categorias,'filtro1': filtro1, 'filtro2': filtro2, 'filtro3': filtro3, 'usuario': usuario,'venta_producto_form': venta_producto_form})
 
 def productos(request):
     usuario = indentificar_usuario(request)
@@ -224,7 +240,10 @@ def carrito(request):
             print(producto_id)
             producto = Venta_Producto.objects.get(id_producto_id=producto_id, id_venta=venta_actual)
             producto.delete()
-            return redirect('carrito')
+            if len(Venta_Producto.objects.filter(id_venta=venta_actual)) == 0:
+                return redirect('index')
+            else:
+                return redirect('carrito')
         elif 'realizar_compra' in request.POST:
             form = VentaForm(request.POST, request.FILES)
             if form.is_valid():
@@ -297,4 +316,4 @@ def logout_view(request):
     global venta_actual
     venta_actual = None
     logout(request)
-    return redirect('productos')
+    return redirect('index')

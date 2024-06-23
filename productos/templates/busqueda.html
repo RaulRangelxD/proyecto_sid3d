@@ -57,7 +57,6 @@
                 {% csrf_token %}
                 <input type="hidden" name="producto_id" value="{{ producto.id }}" />
                 <input type="hidden" name="cantidad" value="1" />
-                <!-- O agrega un campo input para la cantidad si es necesario -->
                 <button
                   type="submit"
                   class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-blue-400 hover:bg-blue-500"

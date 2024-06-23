@@ -31,383 +31,319 @@
 </style>
 {% if no_categorias == False %}
 
-<body class="no-scrollbar">
-  <!-- Inicio -->
-  <section>
-    <div
-      class="bg-inicio flex items-center n justify-center overflow-hidden z-50"
-    >
-      <div
-        class="relative mx-auto h-full px-4 pb-20 md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8"
-      >
-        <div
-          class="flex flex-col items-center justify-between lg:flex-row py-16"
-        >
-          <div class="relative">
-            {% for producto in filtro1 %}
-            <div class="bg-slate-400">
-              <div class="absolute top-0 -left-48 z-0">
-                <img
-                  src="{{ producto.imagen.url }}"
-                  class="w-40 z-0 h-full object-fill fill-y text-y rounded"
-                />
-                <p>{{ producto.nombre }}</p>
-                <p>En oferta</p>
-              </div>
-            </div>
-            {% endfor %}
-            <div class="lg:max-w-xl lg:pr-5 relative z-40">
-              <p class="flex text-sm uppercase text-g1">Tienda Online</p>
-              <h2
-                class="mb-6 max-w-lg text-5xl font-light leading-snug tracking-tight text-g1 sm:text-7xl sm:leading-snug"
-              >
-                Bienvenidos a
-                <span
-                  class="rounded bg-titulo my-1 inline-block border-b-8 border-black border-g4 px-4 font-bold text-g4 animate__animated animate__flash"
-                  >FerreElectricos Fertaca</span
-                >
-              </h2>
-              <p class="text-base text-gray-700">
-                Aquí podras encontrar todo lo que busques en el area de
-                ferrerteria
-              </p>
-              <div class="mt-10 flex flex-col items-center md:flex-row">
-                <a
-                  href="/"
-                  aria-label=""
-                  class="group inline-flex items-center font-semibold text-g1"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="ml-4 h-6 w-6 transition-transform group-hover:translate-x-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    ></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="relative hidden lg:ml-32 lg:block lg:w-1/2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="my-6 mx-auto h-10 w-10 animate-bounce rounded-full bg-white p-2 lg:hidden"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M16 17l-4 4m0 0l-4-4m4 4V3"
-              ></path>
-            </svg>
-            <div
-              class="abg-orange-400 mx-auto w-fit overflow-hidden rounded-[6rem] rounded-br-none rounded-tl-none border-rd"
-            >
-              <img class="rounded" src="{% static 'images/inicio0.jpg' %}" />
+<!-- Inicio -->
+<section>
+  <div class="bg-inicio flex items-center n justify-center overflow-hidden z-50">
+    <div class="relative mx-auto h-full px-4 pb-20 md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
+      <div class="flex flex-col items-center justify-between lg:flex-row py-16">
+        <div class="relative">
+          <div class="lg:max-w-xl lg:pr-5 relative z-40">
+            <p class="flex text-sm uppercase text-g1">Tienda Online</p>
+            <h2 class="mb-6 max-w-lg text-5xl font-light leading-snug tracking-tight text-g1 sm:text-7xl sm:leading-snug">
+              Bienvenidos a
+              <span class="rounded bg-titulo my-1 inline-block border-b-8 border-black border-g4 px-4 font-bold text-g4 animate__animated animate__flash">FerreElectricos Fertaca</span>
+            </h2>
+            <p class="text-base text-gray-700">Aquí podras encontrar todo lo que busques en el area de ferrerteria</p>
+            <div class="mt-10 flex flex-col items-center md:flex-row">
+              <a href="/" aria-label="" class="group inline-flex items-center font-semibold text-g1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ml-4 h-6 w-6 transition-transform group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </a>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        class="hidden text-9xl varien absolute top-6 left-1/4 text-g/10 z-40"
-      >
-        About Us
-      </div>
-    </div>
-  </section>
-
-  <section
-    class="bg-carrucel relative from-blue-50 to-violet-50 flex items-center justify-center h-carrucel overflow-x-hidden mt-5 mb-5"
-  >
-    <!-- Botón Izquierda -->
-    <button
-      id="scrollLeft"
-      class="scroll-button left-4 md:left-8 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute"
-    >
-      &#9664;
-    </button>
-    <!-- Contenedor de Productos -->
-    <div
-      id="scrollContainer"
-      class="scroll-container flex space-x-4 overflow-x-auto h-full mt-5 drop-shadow-xl"
-    >
-      {% for producto in form %}
-      <div
-        class="scroll-item container grid grid-cols-1 gap-4 w-80 h-80 rounded-lg drop-shadow-xl"
-      >
-        <div class="flex flex-col gap-4">
-          <div
-            class="p-4 bg-white rounded-lg border dark:bg-gray-800 dark:border-gray-700"
+        <div class="relative hidden lg:ml-32 lg:block lg:w-1/2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="my-6 mx-auto h-10 w-10 animate-bounce rounded-full bg-white p-2 lg:hidden"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
           >
-            <div class="overflow-hidden rounded-md">
-              <a href="">
-                <img
-                  class="w-full h-60 object-cover"
-                  src="{{ producto.imagen.url }}"
-                  alt="{{ producto.nombre }}"
-                />
-              </a>
-            </div>
-            <div class="px-5 pb-5">
-              <a href="">
-                <h5
-                  class="mt-3 text-xl font-semibold tracking-tight text-gray-900 dark:text-white"
-                >
-                  {{ producto.nombre }}
-                </h5>
-              </a>
-              <div class="flex items-center mt-2.5 mb-5">
-                <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                  <!-- Aquí los íconos de estrellas -->
-                  <svg
-                    class="w-4 h-4 text-yellow-300"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 22 20"
-                  >
-                    <path
-                      d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-                    />
-                  </svg>
-                  <!-- Repite los SVGs según sea necesario -->
-                </div>
-                <span
-                  class="m-2 bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3"
-                  >5.0</span
-                >
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-3xl font-bold text-gray-900 dark:text-white"
-                  >{{ producto.precio }}</span
-                >
-                <a
-                  href="#"
-                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >Add to cart</a
-                >
-              </div>
-            </div>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 17l-4 4m0 0l-4-4m4 4V3"></path>
+          </svg>
+          <div class="abg-orange-400 mx-auto w-fit overflow-hidden rounded-[6rem] rounded-br-none rounded-tl-none border-rd">
+            <img class="rounded" src="{% static 'images/inicio0.jpg' %}" />
           </div>
         </div>
       </div>
-      {% endfor %}
     </div>
-    <!-- Botón Derecha -->
-    <button
-      id="scrollRight"
-      class="scroll-button right-4 md:right-8 top-1/2 -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute"
-    >
-      &#9654;
-    </button>
-  </section>
+    <div class="hidden text-9xl varien absolute top-6 left-1/4 text-g/10 z-40">About Us</div>
+  </div>
+</section>
 
-  <!--Categorias-->
-  <section
-    class="bg-carrucel relative from-blue-50 to-violet-50 flex items-center justify-center h-carrucel overflow-x-hidden mt-5"
-  >
-    <!-- Botón Izquierda -->
-    <button
-      id="scrollLeft"
-      class="scroll-button left-4 md:left-8 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute"
-    >
-      &#9664;
-    </button>
-    <!-- Contenedor de Productos -->
-    <div
-      id="scrollContainer"
-      class="scroll-container flex space-x-4 overflow-x-auto h-full mt-5 shadow-lg"
-    >
-      {% for producto in form %}
-      <div
-        class="scroll-item container grid grid-cols-1 gap-4 w-80 h-80 rounded-lg"
-      >
-        <div class="flex flex-col gap-4">
-          <div
-            class="p-4 bg-white rounded-lg border dark:bg-gray-800 dark:border-gray-700"
-          >
-            <div class="overflow-hidden rounded-md">
-              <a href="">
-                <img
-                  class="w-full h-60 object-cover"
-                  src="{{ producto.imagen.url }}"
-                  alt="{{ producto.nombre }}"
-                />
-              </a>
+<section class="bg-carrucel relative from-blue-50 to-violet-50 flex items-center justify-center h-carrucel overflow-x-hidden mt-5 mb-5">
+  <!-- Botón Izquierda -->
+  <button id="scrollLeft" class="scroll-button left-4 md:left-8 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute">&#9664;</button>
+  <!-- Contenedor de Productos -->
+  <div id="scrollContainer" class="scroll-container flex space-x-4 overflow-x-auto h-full mt-5 drop-shadow-xl">
+    {% for producto in form %}
+    <div class="scroll-item container grid grid-cols-1 gap-4 w-80 h-80 rounded-lg drop-shadow-xl">
+      <div class="flex flex-col gap-4">
+        <div class="p-4 bg-white rounded-lg border dark:bg-gray-800 dark:border-gray-700">
+          <div class="overflow-hidden rounded-md">
+            <a href="">
+              <img class="w-full h-60 object-cover" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" />
+            </a>
+          </div>
+          <div class="px-5 pb-5">
+            <a href="">
+              <h5 class="mt-3 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ producto.nombre }}</h5>
+            </a>
+            <div class="flex items-center mt-2.5 mb-5">
+              <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                <!-- Aquí los íconos de estrellas -->
+                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                  <path
+                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                  />
+                </svg>
+                <!-- Repite los SVGs según sea necesario -->
+              </div>
+              <span class="m-2 bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
             </div>
-            <div class="px-5 pb-5">
-              <a href="">
-                <h5
-                  class="mt-3 text-xl font-semibold tracking-tight text-gray-900 dark:text-white"
+            <div class="flex items-center justify-between">
+              <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ producto.precio }}</span>
+              {% if producto.existencias > 0 and usuario.is_customer is True %}
+              <form class="venta-producto-form" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="producto_id" value="{{ producto.id }}" />
+                <input type="hidden" name="cantidad" value="1" />
+                <button
+                  type="submit"
+                  class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-blue-400 hover:bg-blue-500"
                 >
-                  {{ producto.nombre }}
-                </h5>
-              </a>
-              <div class="flex items-center mt-2.5 mb-5">
-                <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                  <!-- Aquí los íconos de estrellas -->
-                  <svg
-                    class="w-4 h-4 text-yellow-300"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 22 20"
-                  >
-                    <path
-                      d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-                    />
-                  </svg>
-                  <!-- Repite los SVGs según sea necesario -->
-                </div>
-                <span
-                  class="m-2 bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3"
-                  >5.0</span
-                >
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-3xl font-bold text-gray-900 dark:text-white"
-                  >{{ producto.precio }}</span
-                >
-                <a
-                  href="#"
-                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >Add to cart</a
-                >
-              </div>
+                  Comprar
+                </button>
+              </form>
+              {% else %}
+              <h1>No hay existencias</h1>
+              {% endif %}
             </div>
           </div>
         </div>
       </div>
-      {% endfor %}
     </div>
-    <!-- Botón Derecha -->
-    <button
-      id="scrollRight"
-      class="scroll-button right-4 md:right-8 top-1/2 -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute"
-    >
-      &#9654;
-    </button>
-  </section>
-  <section
-    class="bg-carrucel relative from-blue-50 to-violet-50 flex items-center justify-center h-carrucel overflow-x-hidden mt-5"
-  >
-    <!-- Botón Izquierda -->
-    <button
-      id="scrollLeft"
-      class="scroll-button left-4 md:left-8 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute"
-    >
-      &#9664;
-    </button>
-    <!-- Contenedor de Productos -->
-    <div
-      id="scrollContainer"
-      class="scroll-container flex space-x-4 overflow-x-auto h-full mt-5 shadow-lg"
-    >
-      {% for producto in form %}
-      <div
-        class="scroll-item container grid grid-cols-1 gap-4 w-80 h-80 rounded-lg"
-      >
-        <div class="flex flex-col gap-4">
-          <div
-            class="p-4 bg-white rounded-lg border dark:bg-gray-800 dark:border-gray-700"
-          >
-            <div class="overflow-hidden rounded-md">
-              <a href="">
-                <img
-                  class="w-full h-60 object-cover"
-                  src="{{ producto.imagen.url }}"
-                  alt="{{ producto.nombre }}"
-                />
-              </a>
-            </div>
-            <div class="px-5 pb-5">
-              <a href="">
-                <h5
-                  class="mt-3 text-xl font-semibold tracking-tight text-gray-900 dark:text-white"
-                >
-                  {{ producto.nombre }}
-                </h5>
-              </a>
-              <div class="flex items-center mt-2.5 mb-5">
-                <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                  <!-- Aquí los íconos de estrellas -->
-                  <svg
-                    class="w-4 h-4 text-yellow-300"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 22 20"
-                  >
-                    <path
-                      d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-                    />
-                  </svg>
-                  <!-- Repite los SVGs según sea necesario -->
-                </div>
-                <span
-                  class="m-2 bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3"
-                  >5.0</span
-                >
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-3xl font-bold text-gray-900 dark:text-white"
-                  >{{ producto.precio }}</span
-                >
-                <a
-                  href="#"
-                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >Add to cart</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-    <!-- Botón Derecha -->
-    <button
-      id="scrollRight"
-      class="scroll-button right-4 md:right-8 top-1/2 -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute"
-    >
-      &#9654;
-    </button>
-  </section>
-  <!--End Categorias-->
-  {% else %}
-  <h1>No hay suficientes categorías para mostrar, el mínimo son 3</h1>
-  {% endif %}
+    {% endfor %}
+  </div>
+  <!-- Botón Derecha -->
+  <button id="scrollRight" class="scroll-button right-4 md:right-8 top-1/2 -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute">&#9654;</button>
+</section>
 
-  <script>
-    document
-      .getElementById("scrollLeft")
-      .addEventListener("click", function () {
-        document
-          .getElementById("scrollContainer")
-          .scrollBy({ left: -300, behavior: "smooth" });
+<!--Categorias-->
+<section class="bg-carrucel relative from-blue-50 to-violet-50 flex items-center justify-center h-carrucel overflow-x-hidden mt-5">
+  <!-- Botón Izquierda -->
+  <button id="scrollLeft" class="scroll-button left-4 md:left-8 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute">&#9664;</button>
+  <!-- Contenedor de Productos -->
+  <div id="scrollContainer" class="scroll-container flex space-x-4 overflow-x-auto h-full mt-5 shadow-lg">
+    {% for producto in filtro1 %}
+    <div class="scroll-item container grid grid-cols-1 gap-4 w-80 h-80 rounded-lg drop-shadow-xl">
+      <div class="flex flex-col gap-4">
+        <div class="p-4 bg-white rounded-lg border dark:bg-gray-800 dark:border-gray-700">
+          <div class="overflow-hidden rounded-md">
+            <a href="">
+              <img class="w-full h-60 object-cover" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" />
+            </a>
+          </div>
+          <div class="px-5 pb-5">
+            <a href="">
+              <h5 class="mt-3 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ producto.nombre }}</h5>
+            </a>
+            <div class="flex items-center mt-2.5 mb-5">
+              <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                <!-- Aquí los íconos de estrellas -->
+                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                  <path
+                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                  />
+                </svg>
+                <!-- Repite los SVGs según sea necesario -->
+              </div>
+              <span class="m-2 bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ producto.precio }}</span>
+              {% if producto.existencias > 0 and usuario.is_customer is True %}
+              <form class="venta-producto-form" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="producto_id" value="{{ producto.id }}" />
+                <input type="hidden" name="cantidad" value="1" />
+                <button
+                  type="submit"
+                  class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-blue-400 hover:bg-blue-500"
+                >
+                  Comprar
+                </button>
+              </form>
+              {% else %}
+              <h1>No hay existencias</h1>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- Botón Derecha -->
+  <button id="scrollRight" class="scroll-button right-4 md:right-8 top-1/2 -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute">&#9654;</button>
+</section>
+
+<!--Categorias-->
+<section class="bg-carrucel relative from-blue-50 to-violet-50 flex items-center justify-center h-carrucel overflow-x-hidden mt-5">
+  <!-- Botón Izquierda -->
+  <button id="scrollLeft" class="scroll-button left-4 md:left-8 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute">&#9664;</button>
+  <!-- Contenedor de Productos -->
+  <div id="scrollContainer" class="scroll-container flex space-x-4 overflow-x-auto h-full mt-5 shadow-lg">
+    {% for producto in filtro2 %}
+    <div class="scroll-item container grid grid-cols-1 gap-4 w-80 h-80 rounded-lg">
+      <div class="flex flex-col gap-4">
+        <div class="p-4 bg-white rounded-lg border dark:bg-gray-800 dark:border-gray-700">
+          <div class="overflow-hidden rounded-md">
+            <a href="">
+              <img class="w-full h-60 object-cover" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" />
+            </a>
+          </div>
+          <div class="px-5 pb-5">
+            <a href="">
+              <h5 class="mt-3 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ producto.nombre }}</h5>
+            </a>
+            <div class="flex items-center mt-2.5 mb-5">
+              <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                <!-- Aquí los íconos de estrellas -->
+                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                  <path
+                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                  />
+                </svg>
+                <!-- Repite los SVGs según sea necesario -->
+              </div>
+              <span class="m-2 bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ producto.precio }}</span>
+              {% if producto.existencias > 0 and usuario.is_customer is True %}
+              <form class="venta-producto-form" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="producto_id" value="{{ producto.id }}" />
+                <input type="hidden" name="cantidad" value="1" />
+                <!-- O agrega un campo input para la cantidad si es necesario -->
+                <button
+                  type="submit"
+                  class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-blue-400 hover:bg-blue-500"
+                >
+                  Comprar
+                </button>
+              </form>
+              {% else %}
+              <h1>No hay existencias</h1>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- Botón Derecha -->
+  <button id="scrollRight" class="scroll-button right-4 md:right-8 top-1/2 -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute">&#9654;</button>
+</section>
+<section class="bg-carrucel relative from-blue-50 to-violet-50 flex items-center justify-center h-carrucel overflow-x-hidden mt-5">
+  <!-- Botón Izquierda -->
+  <button id="scrollLeft" class="scroll-button left-4 md:left-8 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute">&#9664;</button>
+  <!-- Contenedor de Productos -->
+  <div id="scrollContainer" class="scroll-container flex space-x-4 overflow-x-auto h-full mt-5 shadow-lg">
+    {% for producto in filtro3 %}
+    <div class="scroll-item container grid grid-cols-1 gap-4 w-80 h-80 rounded-lg">
+      <div class="flex flex-col gap-4">
+        <div class="p-4 bg-white rounded-lg border dark:bg-gray-800 dark:border-gray-700">
+          <div class="overflow-hidden rounded-md">
+            <a href="">
+              <img class="w-full h-60 object-cover" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" />
+            </a>
+          </div>
+          <div class="px-5 pb-5">
+            <a href="">
+              <h5 class="mt-3 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ producto.nombre }}</h5>
+            </a>
+            <div class="flex items-center mt-2.5 mb-5">
+              <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                <!-- Aquí los íconos de estrellas -->
+                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                  <path
+                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                  />
+                </svg>
+                <!-- Repite los SVGs según sea necesario -->
+              </div>
+              <span class="m-2 bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ producto.precio }}</span>
+              {% if producto.existencias > 0 and usuario.is_customer is True %}
+              <form class="venta-producto-form" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="producto_id" value="{{ producto.id }}" />
+                <input type="hidden" name="cantidad" value="1" />
+                <button
+                  type="submit"
+                  class="py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white focus:outline-none active:shadow-none bg-blue-400 hover:bg-blue-500"
+                >
+                  Comprar
+                </button>
+              </form>
+              {% else %}
+              <h1>No hay existencias</h1>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- Botón Derecha -->
+  <button id="scrollRight" class="scroll-button right-4 md:right-8 top-1/2 -translate-y-1/2 bg-blue-600 text-white rounded-full focus:outline-none p-2 absolute">&#9654;</button>
+</section>
+<!--End Categorias-->
+{% else %}
+<h1>No hay suficientes categorías para mostrar, el mínimo son 3</h1>
+{% endif %}
+
+<script>
+  document.getElementById("scrollLeft").addEventListener("click", function () {
+    document.getElementById("scrollContainer").scrollBy({ left: -300, behavior: "smooth" });
+  });
+
+  document.getElementById("scrollRight").addEventListener("click", function () {
+    document.getElementById("scrollContainer").scrollBy({ left: 300, behavior: "smooth" });
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+<!-- scripts para manejar el agregado de productos al carrito sin recargar toda la pagina -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".venta-producto-form").on("submit", function (e) {
+      e.preventDefault();
+      var form = $(this);
+      $.ajax({
+        type: form.attr("method"),
+        url: window.location.href,
+        data: form.serialize(),
+        success: function (response) {
+          if (response.status === "success") {
+            alert(response.message);
+          }
+        },
+        error: function (response) {
+          alert("Error al agregar el producto");
+        },
       });
+    });
+  });
+</script>
 
-    document
-      .getElementById("scrollRight")
-      .addEventListener("click", function () {
-        document
-          .getElementById("scrollContainer")
-          .scrollBy({ left: 300, behavior: "smooth" });
-      });
-  </script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js"
-    defer
-  ></script>
-  {% endblock %}
-</body>
+{% endblock %}

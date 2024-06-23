@@ -39,13 +39,13 @@ def login_view(request):
                 return redirect('productos')
             elif user is not None and user.is_customer:
                 login(request,user)
-                return redirect('productos')
+                return redirect('index')
             elif user is not None and user.is_employee:
                 login(request,user)
                 return redirect('productos')
             elif user is not None:
                 login(request,user)
-                return redirect('productos')
+                return redirect('index')
             else:
                 msg='credenciales invalidas'
         else:
