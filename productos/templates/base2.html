@@ -72,44 +72,42 @@
               <img src="{% static 'images/logo.png' %}" alt="Logo" class="rounded-full h-12" />
             </a>
           </div>
-          <div class="flex justify-center items-center">
-            <div class="me-3">
+          <div class="flex justify-center items-center space-x-0">
+            <div class="">
               <button
                 type="button"
                 id="dropdownButton"
-                class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-bold text-black hover:bg-gray-50 focus:outline-none"
+                class="inline-flex justify-center w-full rounded-l px-4 py-2 text-sm font-bold text-black bg-white border border-gray-300 focus:border-blue-500"
               >
                 Categorías
-                <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <svg class="-mr-0 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.793l3.71-3.563a.75.75 0 111.04 1.084l-4 3.75a.75.75 0 01-1.04 0l-4-3.75a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                 </svg>
               </button>
             </div>
+
+            <div id="dropdownMenu" class="hidden absolute top-12 mt-2 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div class="py-1" role="none">
+                {% for cat in categoria %}
+                <a href="{% url 'busqueda' cat.nombre %}" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem">{{ cat.nombre }}</a>
+                {% endfor %}
+              </div>
+            </div>
             <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.4/dist/flowbite.min.css" />
 
             <!-- Search -->
-            <div class="max-w-2xl mx-auto">
+            <div class="mx-auto">
               <form>
-                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
-                <div class="relative">
-                  <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                  </div>
-                  <input
-                    type="search"
-                    id="default-search"
-                    class="block p-3 pl-10 pr-5 w-80 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Buscar Producto"
-                    required
-                  />
+                <div class="flex">
+                  <input type="search" id="default-search" class="w-40 text-sm text-gray-900 bg-white border border-gray-300 focus:border-blue-500" placeholder="Buscar Producto" required />
 
                   <button
                     type="submit"
-                    class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-r-lg text-sm px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
-                    Search
+                    <svg class="w-5 h-5 text-black dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
                   </button>
                 </div>
               </form>

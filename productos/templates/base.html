@@ -86,7 +86,7 @@
               </button>
             </div>
 
-            <div id="dropdownMenu" class="hidden origin-top-center absolute top-12 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div id="dropdownMenu" class="hidden absolute top-12 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
               <div class="py-1" role="none">
                 {% for cat in categoria %}
                 <a href="{% url 'busqueda' cat.nombre %}" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem">{{ cat.nombre }}</a>
