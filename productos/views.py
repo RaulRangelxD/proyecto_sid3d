@@ -222,8 +222,11 @@ def carrito(request):
     
     if request.method == 'POST':
         if 'cancelar_compra' in request.POST:
+            venta_producto_borrar = Venta_Producto.objects.filter(id_venta=venta_actual)
+            for venta in venta_producto_borrar:
+                venta.delete()
+            venta_actual.delete()
             venta_actual = None
-            print('None1')
             return redirect('carrito')
         elif 'incrementar' in request.POST:
             producto_id = request.POST.get('incrementar')
@@ -245,6 +248,8 @@ def carrito(request):
             producto = Venta_Producto.objects.get(id_producto_id=producto_id, id_venta=venta_actual)
             producto.delete()
             if len(Venta_Producto.objects.filter(id_venta=venta_actual)) == 0:
+                venta_actual.delete()
+                venta_actual = None
                 return redirect('index')
             else:
                 return redirect('carrito')
@@ -265,10 +270,14 @@ def carrito(request):
                 print('None2')
                 return redirect('productos')
     form = VentaForm()
-    
     categoria = Categoria.objects.all()
     venta_producto = Venta_Producto.objects.all()
     articulos_carrito = []
+    if venta_actual is None:
+        try:
+            venta_actual = Venta.objects.get(id_cliente_id=request.user.id)
+        except:
+            venta_actual = None
 
     if venta_actual is not None:
         total = Venta_Producto.objects.filter(id_venta=venta_actual).aggregate(total=Sum(F('cantidad') * F('id_producto__precio')))['total'] or 0
