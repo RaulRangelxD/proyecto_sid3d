@@ -1,0 +1,41 @@
+/* custom.css */
+.bg-inicio {
+  background-color: #d4d9f1;
+}
+
+.bg-titulo {
+  background-color: #9da2dc;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar-x {
+  overflow-x: hidden;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.bg-carrucel {
+  overflow-y: hidden;
+  background-color: #f2f4fb;
+}
+.h-carrucel {
+  height: 463px;
+}
+.footer-navbar {
+  background-color: #44416e;
+}
+
+.border-rd {
+  border: 20px solid #26243c;
+  /*Bordesólidorojode2px*/
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
