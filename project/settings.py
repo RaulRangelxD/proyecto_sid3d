@@ -23,7 +23,7 @@ MEDIA_URL = '/media/'
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-hclw)#vy63)je@)&+(&06!-si@$0zz@n)3ln6!iw^n57h1woo('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.environ.get('DEBUG', 'False').lower == 'true'
@@ -101,14 +101,11 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'proyecto',
-        'USER': 'postgres',
-        'PASSWORD': 'alejandra',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://postgres:alejandra@localhost:5432/proyecto',
+        conn_max_age=600
+    )
 }
 
 # database_url = os.environ.get('DATABASE_URL')
