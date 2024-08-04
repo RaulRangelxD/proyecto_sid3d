@@ -95,17 +95,6 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'proyecto',
-        'USER': 'postgres',
-        'PASSWORD': 'alejandra',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-
 database_url = os.environ.get('DATABASE_URL')
 DATABASES['default'] = dj_database_url.parse(database_url)
 
