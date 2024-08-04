@@ -110,8 +110,8 @@ DATABASES = {
     }
 }
 
-database_url = os.environ.get('DATABASE_URL')
-DATABASES['default'] = dj_database_url.parse(database_url)
+# database_url = os.environ.get('DATABASE_URL')
+# DATABASES['default'] = dj_database_url.parse(database_url)
 
 #'postgresql://django_proyectosid3d_user:NwBvAUrOKGQgsHrOdAmUh01NaL8hpv4u@dpg-cqntddjv2p9s73ahmot0-a.oregon-postgres.render.com/django_proyectosid3d'
 
