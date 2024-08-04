@@ -28,6 +28,11 @@ class Venta(models.Model):
     en_proceso = models.BooleanField(default=False)
     confirmada = models.BooleanField(default=False)
 
+class Venta_Producto(models.Model):
+    id_venta = models.ForeignKey('Venta', on_delete=models.CASCADE)
+    id_producto = models.ForeignKey('Producto', on_delete=models.CASCADE)
+    cantidad = models.IntegerField()
+
 class Compra(models.Model):
     id = models.AutoField(primary_key=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
@@ -37,11 +42,6 @@ class Compra(models.Model):
     telefono_compra = models.CharField(max_length=255,default='1')
     fecha = models.DateField(auto_now_add=True)
     proveedor = models.CharField(max_length=255)
-
-class Venta_Producto(models.Model):
-    id_venta = models.ForeignKey('Venta', on_delete=models.CASCADE)
-    id_producto = models.ForeignKey('Producto', on_delete=models.CASCADE)
-    cantidad = models.IntegerField()
 
 class Ingresos(models.Model):
     id = models.AutoField(primary_key=True)
